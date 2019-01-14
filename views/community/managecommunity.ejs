@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage <%= comm.name %></title>
+
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<%- include('../partials/user/navbar',{user:user}) %>
+<div class="community-header-top communityheader-profile-mobile" style="padding-top:6px;position:relative;">
+        <div class="container pc">
+        
+    </div>
+        <center>
+            <div class="communityprofile-name-mobile" style="max-height:40px;overflow:scroll">
+              <a href="/community/communityprofile/<%= comm._id %>" style="color:white">
+                 <%= comm.info %>
+              </a>
+            </div>
+        </center>
+    
+        <center>
+          <a href="/community/communityprofile/<%= comm._id %>">
+            <img src="/images/defaultCommunity.jpg" class="mobile img-communityprofile-pic allSides" style="background:#fff">
+          </a>
+        </center>
+    
+    </div>
+    
+    <div class="container community-profile-conatiner">
+    <div class="col-sm-2 col-xs-12 center-mobile pc">
+    <a href="/community/communityprofile/<%= comm._id %>">
+      <img src="/images/defaultCommunity.jpg" class="img-communityprofile-pic allSides" style="background:#fff">
+    </a>
+    </div>
+    
+    <div class="col-sm-8 communityprofile-name-pc">
+      <a href="/community/communityprofile/<%= comm._id %>" class="communityprofile-name-pc">
+        <%= comm.name %>
+      </a>
+    </div>
+    
+    
+    <div class="col-sm-2 col-xs-12 center-mobile" style="padding-top:10px;float:right">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle commuity-profile-menu-btn" type="button" data-toggle="dropdown">
+        <i class="fa fa-bars"></i>
+      </button>
+      <ul class="dropdown-menu custom-commuity-dropdown dropdown-menu-right" style="margin-top:40px">
+    
+        
+          <li>
+              <a href="/community/discussion/<%= comm._id %>" class="community-profile-option-btn">
+                Discussions
+              </a>
+          </li>
+        
+    
+        
+          <li>
+              <a href="/community/managecommunity/<%= comm._id %>" class="community-profile-option-btn">
+                Manage Community
+              </a>
+          </li>
+        
+    
+          <li>
+              <a href="/community/communityprofile/<%= comm._id %>" class="community-profile-option-btn">
+                Community Profile
+              </a>
+          </li>
+    
+          <li>
+              <a href="/community/communitymembers/<%= comm._id %>" class="community-profile-option-btn">
+                Community Members
+              </a>
+          </li>
+    
+        </ul>
+    </div>
+    </div>
+    
+    </div>
+    <center>
+        <hr style="border-top:2px solid #E6E6E6;width:85%;margin-top:0">
+    </center>
+    
+    
+    <!--=========================Message For Rejection==================================-->
+    <div class="modal fade" id="popUpManageCommunityMessage" role="dialog" style="z-index:9999">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">×</button>
+              <h4 class="modal-title" id="mailheader">Reject Message</h4>
+            </div>
+            <div class="modal-body">
+            <!------------------------------------------------------------------------------------>
+            <div class="form-horizontal"> <!-- form -->
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <center>
+                    <p id="fullNameMessagePop"></p>
+                  </center>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12"><!--Body-->
+                  <textarea type="text" class="form-control" id="messageBoxPop" style="resize: none;height:200px" required=""></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button class="btn btn-default" id="sendButtonPop" style="float:right">Send And Reject</button>
+                </div>
+              </div>
+            </div>
+            <!---------------------------------------------------------------------------------->
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <div class="container">
+    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12" style="padding-bottom:5px;border-bottom:1px solid #c4c4c4">
+      <nonlink class="manageCommunity-head-btn" style="cursor: context-menu;">
+        Manage Community
+      </nonlink>
+      <a href="/community/invite/<%= comm._id %>" style="float:right;font-weight:600">
+        Invite Users
+      </a>
+      
+      <a class="pc" href="/community/editcommunity/<%= comm._id %>" style="float:right;font-weight:600;margin-right:15px">
+        Edit Community
+      </a>
+      
+    </div>
+    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12" style="padding:10px 0 0 0;">
+    
+      <div class="col-sm-3 manageCommunity-commuity-div" style="padding:0">
+        
+          <div class="panel-heading allSidesSoft center-all mobile" style="background:#fff;margin-bottom:5px">
+              <a class="btn btn-primary editcommunity-btn">
+                Edit Commuity
+              </a>
+          </div>
+        
+        <div class="panel-body allSidesSoft" style="background:#fff">
+            <a class="manageCommunity-child-btn manageCommunity-btn-active" onclick="users()" id="UsersShowBtn">Users (<%= comm.membersJoined.length %>)</a>
+            <br>
+            <a class="manageCommunity-child-btn" onclick="admins()" id="AdminsShowBtn">
+              Admins (<%= comm.admin.length%>)
+            </a>
+            
+            
+              
+            
+            
+              <br>
+              <a class="manageCommunity-child-btn" onclick="requests()" id="requestedUserShowBtn">
+                Requests (<%= comm.membersRequested.length %>)
+              </a>
+            
+            <br>
+            <a class="manageCommunity-child-btn" onclick="invites()" id="invitedUserShowBtn">
+              Invited Users (0)
+            </a>
+        </div>
+        <br>
+      </div>
+      <div class="col-sm-9">
+        <div id="comlist">
+         
+        </div>
+      </div>
+    </div>
+     <script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+    });
+    var id  = location.pathname.split('/')[3];
+    
+    function updateCountOnBtn(elmId,btntxt,count){
+      $(elmId).empty().append(btntxt+' ('+(count)+')');
+    }
+    users();
+    function users()
+    {
+        console.log(">>>>>>>>"+id+"<<<<<<<<<");
+        $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({_id:id}),
+             url: '/community/allcomusers/'+id,
+             success: function (response) {
+               console.log("AGYA VAPIS");
+                res=JSON.parse(response);
+      $("#AdminsShowBtn").removeClass('manageCommunity-btn-active');
+      $("#requestedUserShowBtn").removeClass('manageCommunity-btn-active');
+      $("#invitedUserShowBtn").removeClass('manageCommunity-btn-active');
+      $("#UsersShowBtn").addClass('manageCommunity-btn-active');
+      $(".allcoms").remove();
+       var  code="";
+       res.membersJoined.forEach(function(user){
+            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+            code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
+            code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"makeAdmin('"+user.userid+"','"+id+"')\" style=\"float:left\">";
+            code+="<i class=\"fa fa-chevron-up\"></i>";
+            code+="</a><a class=\"community-user-short-btn\" style=\"float:right\" onclick=\"deleteCommunityUserfromJoined('"+user.userid+"','"+id+"')\">";
+            code+="<i class=\"fa fa-times\"></i></a></div></div>";
+            $('#comlist').append(code);
+            });
+        }
+        });
+    }
+    function admins()
+    {
+      $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({_id:id}),
+             url: '/community/allcomadminsandowners/'+id,
+             success: function (response) {
+               console.log("AGYA VAPIS");
+                res=JSON.parse(response);
+        $("#UsersShowBtn").removeClass('manageCommunity-btn-active');
+        $("#requestedUserShowBtn").removeClass('manageCommunity-btn-active');
+        $("#invitedUserShowBtn").removeClass('manageCommunity-btn-active');
+        $("#AdminsShowBtn").addClass('manageCommunity-btn-active');
+        $(".allcoms").remove();
+       var  code="";
+
+       code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+res.owner.userid+"\">";
+            code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
+            code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+res.owner.userid+"\">"+res.owner.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><span class=\"label label-success\" style=\"margin-top:25px;float:right\">Owner</span></div></div>";
+            $('#comlist').append(code);
+            
+
+
+       res.admin.forEach(function(user){
+            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+            code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
+            code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"removeAdmin('"+user.userid+"','"+id+"')\" style=\"float:left\">";
+            code+="<i class=\"fa fa-chevron-down\"></i>";
+            code+="</a><a class=\"community-user-short-btn\" style=\"float:right\" onclick=\"deleteCommunityUserfromAdmin('"+user.userid+"','"+id+"')\">";
+            code+="<i class=\"fa fa-times\"></i></a></div></div>";
+            $('#comlist').append(code);
+            });
+          }
+        });
+    
+    }
+    function requests()
+    {
+      $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({_id:id}),
+             url: '/community/membersRequested/'+id,
+             success: function (response) {
+               res=JSON.parse(response);
+        $("#UsersShowBtn").removeClass('manageCommunity-btn-active');
+        $("#AdminsShowBtn").removeClass('manageCommunity-btn-active');
+        $("#invitedUserShowBtn").removeClass('manageCommunity-btn-active');
+        $("#requestedUserShowBtn").addClass('manageCommunity-btn-active');
+        $(".allcoms").remove();
+        var  code="";
+       
+        
+
+        res.membersRequested.forEach(function(user){
+            code="<div class=\"col-sm-12 col-xs-12 allcoms  community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+            code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
+            code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><div class=\"dropdown\"><div class=\"dropup request-btn-dropdown\"><button class=\"btn btn-default dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" style=\"float:right !important\">Option</button> <ul class=\"dropdown-menu dropdown-menu-right\"><li><a class=\"request-dropdown-options\" onclick=\"acceptJoinRequest('"+user.userid+"','"+id+"')\">Accept</a></li><li><a class=\"request-dropdown-options\" onclick=\"deleteJoinRequest('"+user.userid+"','"+id+"')\">Reject</a></li></ul></div></div></div></div></div>";
+            $('#comlist').append(code);
+            });
+          }
+        });
+    }
+    function invites()
+    {
+      $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({_id:id}),
+             url: '/community/invited/'+id,
+             success: function (response) {
+               res=JSON.parse(response);
+        $("#UsersShowBtn").removeClass('manageCommunity-btn-active');
+        $("#AdminsShowBtn").removeClass('manageCommunity-btn-active');
+        $("#requestedUserShowBtn").removeClass('manageCommunity-btn-active');
+        $("#invitedUserShowBtn").addClass('manageCommunity-btn-active');
+        $(".allcoms").remove();
+        var  code="";
+        
+        res.invited.forEach(function(user){
+            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+            code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
+            code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"cancelthisInvite('"+user.userid+"','"+id+"')\" style=\"float:right\">";
+            code+="<i class=\"fa fa-times\"></i>";
+            code+="</a></div></div>";
+            $('#comlist').append(code);
+            });
+          }
+        });
+    }
+    function deleteJoinRequest(userid,commid)
+    {
+        console.log("OKOKOKOKOKOKOKOKOKOKOK");
+      console.log("ID IS "+userid+"commid : "+commid+"\n");
+                   $.ajax({
+                   
+                    type: "POST",
+                   url: "/RejectJoinRequest",
+                   data: JSON.stringify({userid : userid,commid : commid}),
+                   contentType: 'application/json',
+                   success: function(response)
+                   {
+                      var res=JSON.parse(response);
+                      $("#user"+userid+"").remove();
+                   }
+                });
+              }
+              function makeAdmin(userid,commid)
+              {
+                $.ajax({
+                   
+                   type: "POST",
+                  url: "/makeAdmin",
+                  data: JSON.stringify({userid : userid,commid : commid}),
+                  contentType: 'application/json',
+                  success: function(response)
+                  {
+                     var res=JSON.parse(response);
+                     $("#user"+userid+"").remove();
+                  }
+               });
+        
+              }
+              function removeAdmin(userid,commid)
+              {
+                $.ajax({
+                   
+                   type: "POST",
+                  url: "/removeAdmin",
+                  data: JSON.stringify({userid : userid,commid : commid}),
+                  contentType: 'application/json',
+                  success: function(response)
+                  {
+                     var res=JSON.parse(response);
+                     $("#user"+userid+"").remove();
+                  }
+               });
+              }
+    function acceptJoinRequest(userid,commid)
+    {
+        $.ajax({
+                   
+                   type: "POST",
+                  url: "/AcceptJoinRequest",
+                  data: JSON.stringify({userid : userid,commid : commid}),
+                  contentType: 'application/json',
+                  success: function()
+                  {
+                     $("#user"+userid+"").remove();
+                  }
+               });
+             }
+
+    function deleteCommunityUserfromJoined(userid,commid)
+    {
+        $.ajax({
+                   
+                   type: "POST",
+                  url: "/deleteCommunityUserfromJoined",
+                  data: JSON.stringify({userid : userid,commid : commid}),
+                  contentType: 'application/json',
+                  success: function(response)
+                  {
+                     var res=JSON.parse(response);
+                     $("#user"+userid+"").remove();
+                  }
+               });
+             }
+             function cancelthisInvite(userid,commid)
+             {
+                $.ajax({
+                   
+                   type: "POST",
+                  url: "/cancelTheInvite",
+                  data: JSON.stringify({userid : userid,commid : commid}),
+                  contentType: 'application/json',
+                  success: function(response)
+                  {
+                     $("#user"+userid+"").remove();
+                  }
+               });
+             }
+    function deleteCommunityUserfromAdmin(userid,commid)
+    {
+        $.ajax({
+                   
+                   type: "POST",
+                  url: "/deleteCommunityUserfromAdmin",
+                  data: JSON.stringify({userid : userid,commid : commid}),
+                  contentType: 'application/json',
+                  success: function()
+                  {
+                     $("#user"+userid+"").remove();
+                  }
+               });
+             }
+       
+    </script>
+<script src="/js/Common.js"></script>
+<script src="/js/notie.min.js"></script>
+<script src="/js/CommunityHelper.js"></script>
+<!-- <script src="/js/ManageCommunity.js"></script> -->
+
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+    </body>
+</html>

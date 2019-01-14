@@ -1,0 +1,152 @@
+</head>
+<body>
+
+
+  <nav class="navbar navbar-default-bar no-margin navbar-bar-head-fixed" id="nav-header">
+
+      <div class="navbar-header fixed-brand">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+					 <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+				</button>
+        
+         <a class="navbar-brand" href="#">TalkDev</a>
+      </div>
+
+			<div class="none-mobile-view-dp">
+					 <img src="/Upload/Profile/default.png" style="height: 40px" class="profilePic">
+          
+          <span class="label label-warning" style="float:right;margin-top:22px;"><%= user.name %></span>
+		 	</div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li class="active">
+              
+                 <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-pc">
+  								 <span class="glyphicon glyphicon-th-large" aria-hidden="true">
+  								 </span>
+                 </button>
+               
+            </li>
+         </ul>
+      </div>
+</nav>
+
+<div id="wrapper">
+<!-- Sidebar -->
+<div id="sidebar-wrapper" style="margin-top:60px">
+   <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+
+     <li class="mobile-view-dp">
+       <div style="margin-right: 10px">
+     		<center>
+            <img src="/Upload/Profile/default.png" style="height: 60px;width: 60px;border-radius:50%">
+        </center>
+     	 </div>
+     </li>
+
+     <li class="onlyForPcNav">
+       <a  onclick="openSideNav()">
+         <span class="fa-stack fa-lg pull-left">
+           <i class="fa fa-bars fa-stack-1x "></i>
+         </span>TalkDev
+       </a>
+     </li>
+
+     
+
+     
+          <li id="edit-profile-nav">
+            <a href="/profile"><span class="fa-stack fa-lg pull-left">
+              <i class="fa fa-user fa-stack-1x "></i></span>
+              <%= user.name %>
+            </a>
+          </li>
+      
+
+      
+
+      
+        <li id="community-panel-nav">
+           <a href="/community/communitypanel"><span class="fa-stack fa-lg pull-left">
+             <i class="fa fa-users fa-stack-1x "></i></span>Communities
+           </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li id="change-password-nav">
+        <a href="/changePassword"><span class="fa-stack fa-lg pull-left">
+          <i class="fa fa-lock fa-stack-1x "></i></span>
+          Change Password
+        </a>
+      </li>
+
+      <li>
+         <a onclick="logout()"><span class="fa-stack fa-lg pull-left">
+           <i class="fa fa-sign-out-alt fa-stack-1x "></i></span>Logout
+         </a>
+      </li>
+
+   </ul>
+</div>
+<script type="text/javascript">
+   $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+   });
+
+   $("#menu-toggle-pc").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled-pc");
+      $('#menu ul').hide();
+   });
+
+//----------------------On Hoover or onclick menuBar-------------------------------
+  function openSideNav(){
+      $("#wrapper").toggleClass("toggled-pc");
+      $('#menu ul').hide();
+  }
+   // $("#sidebar-wrapper").hover(function(){
+   //   $("#wrapper").toggleClass("toggled-pc");
+   //   $('#menu ul').hide();
+   // });
+//----------------------On Hoover or onclick menuBar-------------------------------
+
+   function initMenu() {
+      // $("#wrapper").toggleClass("toggled-pc");
+      // $('#menu ul').hide();
+
+      $('#menu ul').hide();
+      $('#menu ul').children('.current').parent().show();
+      $('#menu li a').click(
+         function() {
+            var checkElement = $(this).next();
+            if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+               return false;
+            }
+            if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+               $('#menu ul:visible').slideUp('normal');
+               checkElement.slideDown('normal');
+               return false;
+            }
+         }
+      );
+   }
+   $(document).ready(function() {
+      initMenu();
+   });
+</script>
+
+<div id="page-content-wrapper" style="padding:0;margin-top:60px"> <!--Margin Top is new-->
+         <div class="container-fluid page-content-div" style="padding:0">
+            <div class="row">
+               <div class="col-lg-12 scoll-possible" style="padding:0">
+

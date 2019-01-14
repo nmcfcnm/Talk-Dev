@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= comm.name %> Discussion</title>
+
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<style>
+#commentBox{
+  display:none;
+}
+</style>
+
+<%- include('../partials/user/navbar',{user:user}) %>
+  <div class="community-header-top communityheader-profile-mobile" style="padding-top:6px;position:relative;">
+    <div class="container pc">
+    
+</div>
+    <center>
+        <div class="communityprofile-name-mobile" style="max-height:40px;overflow:scroll">
+          <a href="/community/communityprofile/<%= comm._id %>" style="color:white">
+             <%= comm.name %>
+          </a>
+        </div>
+    </center>
+
+    <center>
+      
+      <a href="/community/communityprofile/<%= comm._id %>">
+        <img src="/images/nocommunityimage.png" class="mobile img-communityprofile-pic allSides" style="background:#fff">
+      </a>
+    </center>
+
+</div>
+
+<div class="container community-profile-conatiner">
+<div class="col-sm-2 col-xs-12 center-mobile pc">
+<a href="/community/communityprofile/<%= comm._id %>">
+  <img src="/images/nocommunityimage.png" class="img-communityprofile-pic allSides" style="background:#fff">
+</a>
+</div>
+
+<div class="col-sm-8 communityprofile-name-pc">
+  <a href="/community/communityprofile/<%= comm._id %>" class="communityprofile-name-pc">
+    <%= comm.name %>
+  </a>
+</div>
+
+
+<div class="col-sm-2 col-xs-12 center-mobile" style="padding-top:10px;float:right">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle commuity-profile-menu-btn" type="button" data-toggle="dropdown">
+    <i class="fa fa-bars"></i>
+  </button>
+  <ul class="dropdown-menu custom-commuity-dropdown dropdown-menu-right" style="margin-top:40px">
+
+    
+      <li>
+          <a href="/community/discussion/<%= comm._id %>" class="community-profile-option-btn">
+            Discussions
+          </a>
+      </li>
+    
+
+    
+      <li>
+          <a href="/community/managecommunity/<%= comm._id %>" class="community-profile-option-btn">
+            Manage Community
+          </a>
+      </li>
+    
+
+      <li>
+          <a href="/community/communityprofile/<%= comm._id%>" class="community-profile-option-btn">
+            Community Profile
+          </a>
+      </li>
+
+      <li>
+          <a href="/community/communitymembers/<%= comm._id%>" class="community-profile-option-btn">
+            Community Members
+          </a>
+      </li>
+
+    </ul>
+</div>
+</div>
+
+</div>
+<center>
+    <hr style="border-top:2px solid #E6E6E6;width:85%;margin-top:0">
+</center>
+
+<div class="container" style="width:90% !important">
+  
+</div>
+
+<link rel="stylesheet" href="/css/Discussion.css">
+
+<div class="container discussion-input discussion-container">
+  <div class="panel panel-default allSidesSoft" style="border-radius:0;border:1px solid rgb(182, 182, 182) !important;">
+    <div class="panel-body" style="padding:5px;background:#f9f9f9;">
+      <div class="col-sm-1 col-xs-3">
+        <a href="/community/communityprofile/<%= comm._id %>>">
+          <img src="/images/nocommunityimage.png" class="discussion-com-profile-pic allSidesSoft" style="border:2px solid #fff">
+        </a>
+      </div>
+      <p class="col-sm-11 col-xs-9 discussion-heading">
+        Start a discussion
+      </p>
+    </div>
+<form method="POST" enctype="multipart/form-data" id="discussionPostForm">
+
+    <div class="panel-body discussion-panel-body">
+      <div class="col-sm-12 col-xs-12" style="padding:0;border-top: 1px solid white;">
+        <input type="text" style="width:100%" class="discussion-input-title" name="title" placeholder="Enter a discussion title....." id="discussion-title" autocomplete="off" required="">
+      </div>
+    </div>
+    <div class="panel-body discussion-body">
+        <div class="col-sm-12 col-xs-12" style="padding:0;border-top: 1px solid white;">
+          <!--Textarea-->
+            <textarea class="discussion-body-textarea" name="details" placeholder="Enter discussion details" id="discussion-details" autocomplete="off" required=""></textarea>
+          <!------------>
+        </div>
+        <div class="link-preview-main col-sm-12 col-xs-12">
+          <!-- preview here -->
+        </div>
+        <div class="tag-conatiner-custom-div">
+          <select id="tagEditor" name="tags" class="form-control input-sm select2-multiple select2-hidden-accessible" style="width:100%" multiple="" tabindex="-1" aria-hidden="true">
+            <!--Tags option appended here-->
+          <option class="tagSuggestInput">festivals</option><option class="tagSuggestInput">github</option><option class="tagSuggestInput">india</option><option class="tagSuggestInput">investment</option><option class="tagSuggestInput">management</option><option class="tagSuggestInput">manisha</option><option class="tagSuggestInput">money</option><option class="tagSuggestInput">nodejs</option><option class="tagSuggestInput">TalkDev</option><option class="tagSuggestInput">tag1</option><option class="tagSuggestInput">testing</option><option class="tagSuggestInput">world</option><option class="tagSuggestInput">apple</option><option class="tagSuggestInput">economy</option><option class="tagSuggestInput">finance</option><option class="tagSuggestInput">hello</option><option class="tagSuggestInput">latest</option><option class="tagSuggestInput">latest_technology</option><option class="tagSuggestInput">new</option><option class="tagSuggestInput">news</option><option class="tagSuggestInput">python</option><option class="tagSuggestInput">tags</option><option class="tagSuggestInput">technology</option><option class="tagSuggestInput">you-tube</option><option class="tagSuggestInput">youtube</option></select><span class="select2 select2-container select2-container--bootstrap" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple form-control input-sm" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Enter tag..." style="width: 100%;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+        </div>
+
+        <div class="image-preview-main col-sm-12 col-xs-12">
+          <center>
+            <img src="" class="allSides preview-image" id="previewImage">
+          </center>
+        </div>
+        <input type="file" class="discussion-file-btn" name="discussionImageFile" id="discussionImageFile" accept="image/x-png,image/gif,image/jpeg">
+        <div class="col-sm-12 col-xs-12" style="padding:0;">
+          <a class="discussion-image-btn" id="discussionImageClickBtn"><i class="fa fa-image"></i></a>
+          <a id="closeImgPreviewBtn"><i class="fa fa-window-close"></i></a>
+          <button class="btn btn-primary" type="submit" style="float:right" id="discussion-post">
+            <p class="discussion-post-btn-txt">Post</p>
+          <i class="fas fa-spinner discussion-post-spinner infinite-rotation"></i>
+          </button>
+        </div>
+    </div>
+  </form>
+  <div class="panel-footer"></div>
+  </div>
+</div>
+<div id="FeaturedParentDiv">
+
+</div>
+<div id="discussionsList" >
+
+</div>
+        <!-- <h1>%- include('../partials/user/singlePost',{user:user,comm:comm}) %</h1> -->
+</div>
+<div class="endLoader">
+    <center><img src="/images/loading.gif" class="loading" style="display: none;"></center>
+</div>
+<script src="/js/vibrant.js.download"></script>
+<script src="/js/Common.js.download"></script>
+<script src="/js/notie.min.js.download"></script>
+<script src="/js/DScrapingApi.js.download"></script>
+<script src="/js/DiscussionHelper.js.download"></script>
+<!-- <script src="/js/Discussion.js.download"></script> -->
+<!-- <script src="/js/DiscussionComments.js.download"></script> -->
+<script src="/js/select2.min.js.download"></script>
+<script src="/js/TagsCustom.js.download"></script>
+<script>
+  // initDiscussion();
+  // $(window).scroll(function() {
+  //    if($(window).scrollTop() + $(window).height() > $(document).height()-200) {
+  //      if(!dis_wait && ScrollResponseWait)
+  //      {
+  //        ScrollResponseWait = false;
+  //        $('.loading').css('display','block');
+  //        initDiscussion();
+  //      }
+  //    }
+  // });
+</script>
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+<script>
+  var id  = location.pathname.split('/')[3];
+  postListing();
+  function postListing()
+  {
+    $.ajax({
+        type: "POST",
+        url: "/listPost/"+id,
+        data: JSON.stringify({commid : id}),
+        contentType: 'application/json',
+        success: function(response)
+        {
+          var res = (JSON.parse(response));
+          res.forEach(function(p){
+            console.log(p);
+            var child=document.createElement('div');
+            if(p.featured==true)
+            {
+              if(p.global==true)
+              {
+                child.innerHTML="<div class=\"container discussion-container \" id=\""+p._id+"\"><div class=\"panel panel-default allSidesSoft\" style=\"background:white;\" id=\"panel-default"+p._id+"\"><span class=\"badge featured-label\" id=\"featured"+p._id+"\">Featured</span><span class=\"badge global-label\" id=\"global"+p._id+"\" style=\"display: block;\">Global</span><div class=\"dropup open\"><a class=\"discussion-dropdown-menu\" data-toggle=\"dropdown\" style=\"float:right !important\" aria-expanded=\"true\"><i class=\"fa fa-ellipsis-h\"></i></a><ul class=\"dropdown-menu dropdown-menu-right dropdown-menu-discussion\"><li><a class=\"request-dropdown-options\" onclick=\"deleteThePost('"+p.communityId+"','"+p._id+"')\">Delete</a></li><li id=\"featuredBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisFeatured('"+p.communityId+"','"+p._id+"',this)\" id=\"featuredBtn"+p._id+"\">Unfeature</a></li><li id=\"globalBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisGlobal('"+p.communityId+"','"+p._id+"',this)\" id=\"globalBtn"+p._id+"\">Unpublish from TalkDev</a>            </li>         </ul>       </div><div class=\"panel-body\" style=\"padding:0;padding-top:10px\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-title\"><a class=\"discussion-title\" href=\"/community/selecteddiscussion/"+p.communityId+"/"+p._id+" target=\"_blank\">"+p.title+"</a></div><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-head\">     posted by  <a href=\"/viewprofile/"+p.createdById._id+"\">"+p.createdById.name+"</a>   on  "+p.createdOn+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-content\" style=\"font-size:16px\">"+p.info+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-4 col-md-3 col-lg-2 col-xs-8\"><a class=\"comment-btn-discussion\" onclick=\"clickedShowComments('"+p._id+"')\" id=\"showComments"+p._id+"\"><i class=\"fa fa-comment-alt\"></i> "+res.commentsCount+"<mobilenone>comments</mobilenone></a><a class=\"show-comment-btn show-hide-comments comment-btn-discussion\" onclick=\"hideCommentsAction('"+p._id+"')\" id=\"ShowHideComments"+p._id+"\">Hide</a></div></div><br><ul  id=\"allCommentsContainer"+p._id+"\"></ul></div></div>";
+              }
+              else
+              {
+                child.innerHTML="<div class=\"container discussion-container \" id=\""+p._id+"\"><div class=\"panel panel-default allSidesSoft\" style=\"background:white;\" id=\"panel-default"+p._id+"\"><span class=\"badge featured-label\" id=\"featured"+p._id+"\">Featured</span><div class=\"dropup open\"><a class=\"discussion-dropdown-menu\" data-toggle=\"dropdown\" style=\"float:right !important\" aria-expanded=\"true\"><i class=\"fa fa-ellipsis-h\"></i></a><ul class=\"dropdown-menu dropdown-menu-right dropdown-menu-discussion\"><li><a class=\"request-dropdown-options\" onclick=\"deleteThePost('"+p.communityId+"','"+p._id+"')\">Delete</a></li><li id=\"featuredBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisFeatured('"+p.communityId+"','"+p._id+"',this)\" id=\"featuredBtn"+p._id+"\">Unfeature</a></li><li id=\"globalBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisGlobal('"+p.communityId+"','"+p._id+"',this)\" id=\"globalBtn"+p._id+"\">Publish to TalkDev</a>            </li>         </ul>       </div><div class=\"panel-body\" style=\"padding:0;padding-top:10px\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-title\"><a class=\"discussion-title\" href=\"/community/selecteddiscussion/"+p.communityId+"/"+p._id+" target=\"_blank\">"+p.title+"</a></div><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-head\">     posted by  <a href=\"/viewprofile/"+p.createdById._id+"\">"+p.createdById.name+"</a>   on  "+p.createdOn+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-content\" style=\"font-size:16px\">"+p.info+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-4 col-md-3 col-lg-2 col-xs-8\"><a class=\"comment-btn-discussion\" onclick=\"clickedShowComments('"+p._id+"')\" id=\"showComments"+p._id+"\"><i class=\"fa fa-comment-alt\"></i> "+res.commentsCount+"<mobilenone>comments</mobilenone></a><a class=\"show-comment-btn show-hide-comments comment-btn-discussion\" onclick=\"hideCommentsAction('"+p._id+"')\" id=\"ShowHideComments"+p._id+"\">Hide</a></div></div><br><ul  id=\"allCommentsContainer"+p._id+"\"></ul></div></div>";
+              }
+              $("#FeaturedParentDiv").prepend(child);
+            }
+            else
+            {
+              if(p.global==true)
+              {
+                child.innerHTML="<div class=\"container discussion-container \" id=\""+p._id+"\"><div class=\"panel panel-default allSidesSoft\" style=\"background:white;\" id=\"panel-default"+p._id+"\"><span class=\"badge global-label\" id=\"global"+p._id+"\" style=\"display: block;\">Global</span><div class=\"dropup open\"><a class=\"discussion-dropdown-menu\" data-toggle=\"dropdown\" style=\"float:right !important\" aria-expanded=\"true\"><i class=\"fa fa-ellipsis-h\"></i></a><ul class=\"dropdown-menu dropdown-menu-right dropdown-menu-discussion\"><li><a class=\"request-dropdown-options\" onclick=\"deleteThePost('"+p.communityId+"','"+p._id+"')\">Delete</a></li><li id=\"featuredBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisFeatured('"+p.communityId+"','"+p._id+"',this)\" id=\"featuredBtn"+p._id+"\">Feature</a></li><li id=\"globalBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisGlobal('"+p.communityId+"','"+p._id+"',this)\" id=\"globalBtn"+p._id+"\">Unpublish from TalkDev</a>            </li>         </ul>       </div><div class=\"panel-body\" style=\"padding:0;padding-top:10px\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-title\"><a class=\"discussion-title\" href=\"/community/selecteddiscussion/"+p.communityId+"/"+p._id+" target=\"_blank\">"+p.title+"</a></div><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-head\">     posted by  <a href=\"/viewprofile/"+p.createdById._id+"\">"+p.createdById.name+"</a>   on  "+p.createdOn+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-content\" style=\"font-size:16px\">"+p.info+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-4 col-md-3 col-lg-2 col-xs-8\"><a class=\"comment-btn-discussion\" onclick=\"clickedShowComments('"+p._id+"')\" id=\"showComments"+p._id+"\"><i class=\"fa fa-comment-alt\"></i> "+res.commentsCount+"<mobilenone>comments</mobilenone></a><a class=\"show-comment-btn show-hide-comments comment-btn-discussion\" onclick=\"hideCommentsAction('"+p._id+"')\" id=\"ShowHideComments"+p._id+"\">Hide</a></div></div><br><ul  id=\"allCommentsContainer"+p._id+"\"></ul></div></div>";
+              }
+              else
+              {
+                child.innerHTML="<div class=\"container discussion-container \" id=\""+p._id+"\"><div class=\"panel panel-default allSidesSoft\" style=\"background:white;\" id=\"panel-default"+p._id+"\"><div class=\"dropup open\"><a class=\"discussion-dropdown-menu\" data-toggle=\"dropdown\" style=\"float:right !important\" aria-expanded=\"true\"><i class=\"fa fa-ellipsis-h\"></i></a><ul class=\"dropdown-menu dropdown-menu-right dropdown-menu-discussion\"><li><a class=\"request-dropdown-options\" onclick=\"deleteThePost('"+p.communityId+"','"+p._id+"')\">Delete</a></li><li id=\"featuredBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisFeatured('"+p.communityId+"','"+p._id+"',this)\" id=\"featuredBtn"+p._id+"\">Feature</a></li><li id=\"globalBtnLi"+p._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisGlobal('"+p.communityId+"','"+p._id+"',this)\" id=\"globalBtn"+p._id+"\">Publish to TalkDev</a>            </li>         </ul>       </div><div class=\"panel-body\" style=\"padding:0;padding-top:10px\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-title\"><a class=\"discussion-title\" href=\"/community/selecteddiscussion/"+p.communityId+"/"+p._id+" target=\"_blank\">"+p.title+"</a></div><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-head\">     posted by  <a href=\"/viewprofile/"+p.createdById._id+"\">"+p.createdById.name+"</a>   on  "+p.createdOn+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-content\" style=\"font-size:16px\">"+p.info+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-4 col-md-3 col-lg-2 col-xs-8\"><a class=\"comment-btn-discussion\" onclick=\"clickedShowComments('"+p._id+"')\" id=\"showComments"+p._id+"\"><i class=\"fa fa-comment-alt\"></i> "+res.commentsCount+"<mobilenone>comments</mobilenone></a><a class=\"show-comment-btn show-hide-comments comment-btn-discussion\" onclick=\"hideCommentsAction('"+p._id+"')\" id=\"ShowHideComments"+p._id+"\">Hide</a></div></div><br><ul  id=\"allCommentsContainer"+p._id+"\"></ul></div></div>";
+              }
+              $("#discussionsList").prepend(child);
+            }
+          });
+          
+            
+        }
+  });
+}
+
+
+
+
+
+
+$(document).ready(function(){
+       $("#discussion-post").click(function() {
+   var t=$("#discussion-title").val();
+   var d=$("#discussion-details").val();
+   console.log("Send Hogi BHai Fikr Mt kr");     
+   $.ajax({
+        type: "POST",
+        url: "/createPost/<%= comm._id %>",
+        data: JSON.stringify({title : t,
+        details : d
+        }),
+        contentType: 'application/json',
+        success: function(response)
+        {
+            $("#discussion-title").val("");
+            $("#discussion-details").val("");
+            var res = (JSON.parse(response));
+            console.log("post title : "+res.post.title);
+            console.log("post info : "+res.post.info);
+            console.log("post createdByID : "+res.createdById);
+            console.log("post createdByNmae : "+res.createdByName);
+            console.log("post id : "+res.post._id);
+            console.log("community id : "+res.post.communityId);
+            var child=document.createElement('div');
+            child.innerHTML="<div class=\"container discussion-container \" id=\""+res.post._id+"\"><div class=\"panel panel-default allSidesSoft\" style=\"background:white;\" id=\"panel-default"+res.post._id+"\"><div class=\"dropup open\"><a class=\"discussion-dropdown-menu\" data-toggle=\"dropdown\" style=\"float:right !important\" aria-expanded=\"true\"><i class=\"fa fa-ellipsis-h\"></i></a><ul class=\"dropdown-menu dropdown-menu-right dropdown-menu-discussion\"><li><a class=\"request-dropdown-options\" onclick=\"deleteThePost('"+res.post.communityId+"','"+res.post._id+"')\">Delete</a></li><li id=\"featuredBtnLi"+res.post._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisFeatured('"+res.post.communityId+"','"+res.post._id+"',this)\" id=\"featuredBtn"+res.post._id+"\">Feature</a></li><li id=\"globalBtnLi"+res.post._id+"\"><a class=\"request-dropdown-options\" onclick=\"makeThisGlobal('"+res.post.communityId+"','"+res.post._id+"',this)\" id=\"globalBtn"+res.post._id+"\">Publish to TalkDev</a>            </li>         </ul>       </div><div class=\"panel-body\" style=\"padding:0;padding-top:10px\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-title\"><a class=\"discussion-title\" href=\"/community/selecteddiscussion/"+res.post.communityId+"/"+res.post._id+" target=\"_blank\">"+res.post.title+"</a></div><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-head\">     posted by  <a href=\"/viewprofile/"+res.createdById+"\">"+res.createdByName+"</a>   on  "+res.post.createdOn+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-content\" style=\"font-size:16px\">"+res.post.info+"</div></div><div class=\"panel-body\" style=\"padding:0;padding-top:10px;\"><div class=\"col-sm-4 col-md-3 col-lg-2 col-xs-8\"><a class=\"comment-btn-discussion\" onclick=\"clickedShowComments('"+res.post._id+"')\" id=\"showComments"+res.post._id+"\"><i class=\"fa fa-comment-alt\"></i> "+res.commentsCount+"<mobilenone>comments</mobilenone></a><a class=\"show-comment-btn show-hide-comments comment-btn-discussion\" onclick=\"hideCommentsAction('"+res.post._id+"')\" id=\"ShowHideComments"+res.post._id+"\">Hide</a></div></div><br><ul  id=\"allCommentsContainer"+res.post._id+"\"></ul></div></div>";
+            $("#discussionsList").prepend(child);
+            
+        console.log(" Hogi Print K nhi ye dekh baki BHai Fikr Mt Kr ");
+        }
+      });
+    });
+  });
+  function deleteThePost(commid,postid)
+                {
+                    console.log("CALLED");
+                    $.ajax({
+                    type: "POST",
+                    url: "/deleteThePost",
+                    data: JSON.stringify({postid: postid}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                      console.log("Reached");
+                        $("#"+postid+"").remove();
+                    }
+                });
+            }
+      </script>
+<div class="endLoader">
+  <center><img src="/app_pics/bg/loading.gif" class="loading"/></center>
+</div>
+<script src="/js/vibrant.js"></script>
+<script src="/js/Common.js"></script>
+<script src="/js/notie.min.js"></script>
+<script src="/js/DScrapingApi.js"></script>
+<script src="/js/DiscussionHelper.js"></script>
+<script src="/js/Discussion.js"></script>
+<script src="/js/DiscussionComments.js"></script>
+<script src="/js/select2.min.js"></script>
+<script src="/js/TagsCustom.js"></script>
+<script>
+  function makeThisGlobal(commid,postid,param)
+            {
+                    $.ajax({
+                    type: "POST",
+                    url: "/GlobalThePost",
+                    data: JSON.stringify({commid : commid,postid: postid}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                        var res=JSON.parse(response);
+                        console.log(res.global);
+                        if(res.global==true)
+                        {
+                            $("#panel-default"+res._id+"").prepend("<span class=\"badge global-label\" id=\"global"+res._id+"\">Global</span>");
+                            param.innerHTML="Unpublish from TalkDev";
+                        }
+                        else if(res.global==false)
+                        {
+                            $("#global"+res._id+"").remove();
+                            param.innerHTML="Publish to TalkDev";
+                        }
+                    }
+                });
+            }
+            function makeThisFeatured(commid,postid,param)
+            {
+                    $.ajax({
+                    type: "POST",
+                    url: "/featureThePost",
+                    data: JSON.stringify({commid : commid,postid: postid}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                        var res=JSON.parse(response);
+                        if(res.featured==true)
+                        {
+                            $("#panel-default"+res._id+"").prepend("<span class=\"badge featured-label\" id=\"featured"+res._id+"\">Featured</span>");
+                            param.innerHTML="Unfeature";
+                            var $copy = $("#"+res._id+"").clone();
+                            $("#"+res._id+"").remove();
+                            $('#FeaturedParentDiv').prepend($copy);
+                            
+                            // $("#global"+res._id+"").p.remove();
+                        }
+                        else if(res.featured==false)
+                        {
+                            param.innerHTML="Feature";
+                            var $copy = $("#"+res._id+"").clone();
+                            $("#"+res._id+"").remove();
+                            $('#discussionsList').prepend($copy);
+                            $("#featured"+res._id+"").remove();
+                            
+
+                        }
+                        console.log("THANKS");
+                        // var child= document.getElementById(postid);
+                        // child.parentNode.removeChild(child);
+                    }
+                });
+            }
+            function clickedShowComments(postid)
+            {
+              console.log("AA GYA with "+postid);
+              $.ajax({
+                    type: "POST",
+                    url: "/showCommenting",
+                    data: JSON.stringify({postid: postid}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                      
+                      console.log("Sahi hai ");
+                      var res = (JSON.parse(response));
+                      console.log(res.comment);
+                      console.log("image : "+res.image);
+                    res.comment.forEach(function(cc){ 
+                      var c= "<li class=\"col-sm-12 col-xs-12 comment-li comment-box\" id=\"commentLi"+cc._id+"\">  <div class=\"col-sm-1 col-xs-2\">    <img src=\""+cc.createdById.image+"\" class=\"comment-by-pic\">  </div>  <div class=\"col-sm-10 col-xs-10\">    <div class=\"comment-container\">      <a href=\"/viewprofile/"+cc.createdById._id+"\" class=\"comment-by-user-name\">"+cc.createdById.name+"</a>      <span class=\"dis-comment-time\">"+cc.createdOn+"</span><i class=\"fa fa-trash commentOptionButton delComOwner\" onclick=\"deletetheComment('"+postid+"','"+cc._id+"','"+postid+"')\"></i><a class=\"show-reply-btn fa fa-reply commentOptionButton\" onclick=\"ChildReplyInputOrShowReply('"+postid+"','"+cc._id+"')\" id=\"showChildComments"+cc._id+"\"> Not Defined Yet</a>      <p class=\"comment-div\">"+cc.commentBody+"</p>    </div></div><div class=\"col-sm-8 col-xs-10 col-sm-push-1 col-xs-push-2\" id=\"child-reply"+cc._id+"\"></div><div class=\"col-sm-8 col-xs-8 col-sm-push-2 col-xs-push-3 input-group child-reply-input\" id=\"childReply"+cc._id+"\"><div class=\"col-sm-12\"><textarea type=\"text\" autocomplete=\"off\" class=\"form-control input-sm comment-textarea\" id=\"textareaChild"+cc._id+"\" placeholder=\"reply to this comment...\" maxlength=\"1500\" style=\"width:100%\"></textarea></div><div class=\"col-sm-12 center-all\">    <button class=\"btn btn-primary btn-sm post-discussion-btn\" onclick=\"replyChild('"+postid+"','"+cc._id+"')\" style=\"border-radius:0;margin-top:2px;width:100%\">Reply</button></div></div></li>";
+                      $("#allCommentsContainer"+postid+"").append(c);
+
+                    });
+                    
+                    $('#showComments'+postid).replaceWith("<a class=\"comment-btn-discussion\" ><i class=\"fa fa-comment-alt\"></i>Not Defined Yet<mobilenone>comments</mobilenone></a><a class=\"show-comment-btn  comment-btn-discussion\" onclick=\"ShowHidetheComment('"+postid+"')\" id=\"commentHidandShow"+postid+"\" \">Hide</a>");
+              var code="<div class=\"panel-body comment-panel\" style=\"border:0;padding:0\">          <div class=\"col-sm-12 col-xs-12 col-lg-12 col-md-12 comment-box comment-compose-div-css\" style=\"border-top: 1px solid rgb(223, 223, 223); display: inline;\" id=\"composeCommentDiv"+postid+"\"><div class=\"col-sm-1 col-md-1 col-xs-2\"><img src=\""+res.image+"\" class=\"discussion-comment-user\"> </div>              <div class=\"col-sm-11 col-md-11 col-xs-10\">                  <div class=\"input-group reply-input\">                      <textarea type=\"text\" autocomplete=\"off\" class=\"form-control input-md comment-textarea\" id=\"textarea"+postid+"\" placeholder=\"reply to this discussion...\" rows=\"1\" maxlength=\"1500\"></textarea>                      <span class=\"input-group-btn\">                        <button class=\"btn btn-warning btn-md post-discussion-btn\" onclick=\"postThiscomment('"+postid+"')\">Post</button>\"                      </span>                    </div>              </div>          </div>      </div>";
+            $("#panel-default"+postid+"").append(code);        
+            }
+                  });
+            }
+            function postThiscomment(postid)
+            {
+
+              var string= $("#textarea"+postid).val();
+              console.log(">>>>STring is >>>>>"+string+"<<<<<");
+              if(string.length!=0)
+              {
+                console.log(postid);
+                $.ajax({
+                    type: "POST",
+                    url: "/postANewComment",
+                    data: JSON.stringify({postid: postid,commentBody : string}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                      var res=(JSON.parse(response));
+                      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+res.image+"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                      $("#textarea"+postid).val("");
+                      var c= "<li class=\"col-sm-12 col-xs-12 comment-li comment-box\" id=\"commentLi"+res.comment._id+"\">  <div class=\"col-sm-1 col-xs-2\">    <img src=\""+res.image+"\" class=\"comment-by-pic\">  </div>  <div class=\"col-sm-10 col-xs-10\">    <div class=\"comment-container\">      <a href=\"/viewprofile/"+res.userid+"\" class=\"comment-by-user-name\">"+res.name+"</a>      <span class=\"dis-comment-time\">"+res.comment.createdOn+"</span><i class=\"fa fa-trash commentOptionButton delComOwner\" onclick=\"deletetheComment('"+postid+"','"+res.comment._id+"','"+postid+"')\"></i><a class=\"show-reply-btn fa fa-reply commentOptionButton\" onclick=\"ChildReplyInputOrShowReply('"+postid+"','"+res.comment._id+"')\" id=\"showChildComments"+res.comment._id+"\"> Not Defined Yet</a>      <p class=\"comment-div\">"+res.comment.commentBody+"</p>    </div></div><div class=\"col-sm-8 col-xs-10 col-sm-push-1 col-xs-push-2\" id=\"child-reply"+res.comment._id+"\"></div><div class=\"col-sm-8 col-xs-8 col-sm-push-2 col-xs-push-3 input-group child-reply-input\" id=\"childReply"+res.comment._id+"\"><div class=\"col-sm-12\"><textarea type=\"text\" autocomplete=\"off\" class=\"form-control input-sm comment-textarea\" id=\"textareaChild"+res.comment._id+"\" placeholder=\"reply to this comment...\" maxlength=\"1500\" style=\"width:100%\"></textarea></div><div class=\"col-sm-12 center-all\">    <button class=\"btn btn-primary btn-sm post-discussion-btn\" onclick=\"replyChild('"+postid+"','"+res.comment._id+"')\" style=\"border-radius:0;margin-top:2px;width:100%\">Reply</button></div></div></li>";
+                      console.log("))"+c+"((");
+                      $("#allCommentsContainer"+postid).append(c);
+                      console.log("REACHED HERE");
+                    }
+                  });
+              }
+              console.log("POSTED");
+            }
+            function ShowHidetheComment(postid){
+                console.log("AAAAAAAYAYAYYAYAYYAAYYAYA");
+              $("#allCommentsContainer"+postid).empty();
+              $("#commentHidandShow"+postid).replaceWith("<a class=\"show-comment-btn  comment-btn-discussion\" onclick=\"ShowComment('"+postid+"')\"  id=\"commentShow"+postid+"\" \">Show</a>");
+              
+               }
+               function ShowComment(postid)
+               {
+                console.log("AA GYA with "+postid);
+              $.ajax({
+                    type: "POST",
+                    url: "/showCommenting",
+                    data: JSON.stringify({postid: postid}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                      
+                      console.log("Sahi hai ");
+                      var res = (JSON.parse(response));
+                      console.log(res.comment);
+                      console.log("image : "+res.image);
+                    res.comment.forEach(function(cc){ 
+                      var c= "<li class=\"col-sm-12 col-xs-12 comment-li comment-box\" id=\"commentLi"+cc._id+"\">  <div class=\"col-sm-1 col-xs-2\">    <img src=\""+cc.createdById.image+"\" class=\"comment-by-pic\">  </div>  <div class=\"col-sm-10 col-xs-10\">    <div class=\"comment-container\">      <a href=\"/viewprofile/"+cc.createdById._id+"\" class=\"comment-by-user-name\">"+cc.createdById.name+"</a>      <span class=\"dis-comment-time\">"+cc.createdOn+"</span><i class=\"fa fa-trash commentOptionButton delComOwner\" onclick=\"deletetheComment('"+postid+"','"+cc._id+"','"+postid+"')\"></i><a class=\"show-reply-btn fa fa-reply commentOptionButton\" onclick=\"ChildReplyInputOrShowReply('"+postid+"','"+cc._id+"')\" id=\"showChildComments"+cc._id+"\">Not Defined Yet</a>      <p class=\"comment-div\">"+cc.commentBody+"</p>    </div></div><div class=\"col-sm-8 col-xs-10 col-sm-push-1 col-xs-push-2\" id=\"child-reply"+cc._id+"\"></div><div class=\"col-sm-8 col-xs-8 col-sm-push-2 col-xs-push-3 input-group child-reply-input\" id=\"childReply"+cc._id+"\"><div class=\"col-sm-12\"><textarea type=\"text\" autocomplete=\"off\" class=\"form-control input-sm comment-textarea\" id=\"textareaChild"+cc._id+"\" placeholder=\"reply to this comment...\" maxlength=\"1500\" style=\"width:100%\"></textarea></div><div class=\"col-sm-12 center-all\">    <button class=\"btn btn-primary btn-sm post-discussion-btn\" onclick=\"replyChild('"+postid+"','"+cc._id+"')\" style=\"border-radius:0;margin-top:2px;width:100%\">Reply</button></div></div></li>";
+                      $("#allCommentsContainer"+postid+"").append(c);
+
+                    });
+                    
+                    $('#commentShow'+postid).replaceWith("<a class=\"show-comment-btn  comment-btn-discussion\" onclick=\"ShowHidetheComment('"+postid+"')\" id=\"commentHidandShow"+postid+"\" \">Hide</a>");
+            }
+                  });
+               }
+            function deletetheComment(postid,commentid,postid)
+            {
+              $.ajax({
+                    type: "POST",
+                    url: "/deleteTheComment",
+                    data: JSON.stringify({postid: postid,commentid : commentid}),
+                    contentType: 'application/json',
+                    success: function()
+                    {
+                      $("#commentLi"+commentid).remove();
+                    }
+                  });
+            }
+            function ChildReplyInputOrShowReply(postid,commentid)
+            {
+              $('.child-reply-input').css('display','none');
+              $('#childReply'+commentid).css('display','table');
+
+              $.ajax({
+                    type: "POST",
+                    url: "/showReplying",
+                    data: JSON.stringify({postid: postid,commentid : commentid}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                      var res = (JSON.parse(response));
+                      console.log(res.comment);
+                      console.log("image : "+res.image);
+                    res.reply.forEach(function(rr){ 
+                      var child="<li class=\"col-sm-12 col-xs-12 comment-child-li comment-box child"+commentid+"\" id=\"commentLi"+rr._id+"\">  <div class=\"col-sm-1 col-xs-2\">    <img src=\""+rr.createdById.image+"\" class=\"comment-by-pic-child\">  </div>  <div class=\"col-sm-10 col-xs-10\">    <div class=\"comment-container\">      <a href=\""+rr.createdById._id+"\" class=\"comment-by-user-name\">"+rr.createdById.name+"</a>      <span class=\"dis-comment-time\">"+rr.createdOn+"</span><i class=\"fa fa-trash commentOptionButton delComOwner\" onclick=\"deletethisreply('"+commentid+"','"+rr._id+"','"+commentid+"')\"></i>      <p class=\"comment-div-child\">"+rr.replyBody+"</p>    </div>  </div></li>";
+                      $("#child-reply"+commentid+"").append(child);
+                    });
+                      
+                    
+                    }
+                  });
+            }
+            function replyChild(postid,commentid)
+            {
+              console.log("CALL AYI");
+              
+              var string= $("#textareaChild"+commentid).val();
+              console.log(">>>>STring is >>>>>"+string+"<<<<<");
+              if(string.length!=0)
+              {
+                $.ajax({
+                    type: "POST",
+                    url: "/postANewReply",
+                    data: JSON.stringify({commentid: commentid,replyBody : string}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                      
+                      var res=(JSON.parse(response));
+                      $("#textareaChild"+commentid).val("");
+                      var child="<li class=\"col-sm-12 col-xs-12 comment-child-li comment-box child"+commentid+"\" id=\"commentLi"+res.reply._id+"\">  <div class=\"col-sm-1 col-xs-2\">    <img src=\""+res.image+"\" class=\"comment-by-pic-child\">  </div>  <div class=\"col-sm-10 col-xs-10\">    <div class=\"comment-container\">      <a href=\""+res.userid+"\" class=\"comment-by-user-name\">"+res.name+"</a>      <span class=\"dis-comment-time\">"+res.reply.createdOn+"</span><i class=\"fa fa-trash commentOptionButton delComOwner\" onclick=\"deletethisreply('"+commentid+"','"+res.reply._id+"','"+commentid+"')\"></i>      <p class=\"comment-div-child\">"+res.reply.replyBody+"</p>    </div>  </div></li>";
+                      $("#child-reply"+commentid+"").append(child);
+                    }
+                  });
+              }
+              console.log("POSTED");
+              
+            }
+            function deletethisreply(commentid,replyid,commentid)
+            {
+              $.ajax({
+                    type: "POST",
+                    url: "/deleteTheReply",
+                    data: JSON.stringify({commentid: commentid,replyid : replyid}),
+                    contentType: 'application/json',
+                    success: function()
+                    {
+                      $("#commentLi"+replyid).remove();
+                    }
+                  });
+            }
+// initDiscussion();
+// $(window).scroll(function() {
+//    if($(window).scrollTop() + $(window).height() > $(document).height()-200) {
+//      if(!dis_wait && ScrollResponseWait)
+//      {
+//        ScrollResponseWait = false;
+//        $('.loading').css('display','block');
+//        initDiscussion();
+//      }
+//    }
+// });
+</script>
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-sm-8 col-xs-10 col-sm-push-1 col-xs-push-2" id="child-reply5c3b17d41d56ef1b54f98ca2"><li class="col-sm-12 col-xs-12 comment-child-li comment-box child5c3b17d41d56ef1b54f98ca2" id="commentLi5c3b839e1d56ef1b54f98ca6">  <div class="col-sm-1 col-xs-2">    <img src="/Upload/Profile/1537584524591.jpeg" class="comment-by-pic-child">  </div>  <div class="col-sm-10 col-xs-10">    <div class="comment-container">      <a href="/viewprofile/5ba5ac9d393e737dbe66f5c8" class="comment-by-user-name">Sameer Guglani</a>      <span class="dis-comment-time">11:59 PM</span><i class="fa fa-trash commentOptionButton delComOwner" onclick="deleteDisComment('5c2e5dd76992046a9ffe6db2','5c3b839e1d56ef1b54f98ca6','5c3b17d41d56ef1b54f98ca2')"></i>      <p class="comment-div-child">cwj      </p>    </div>  </div></li><li class="col-sm-12 col-xs-12 comment-child-li comment-box child5c3b17d41d56ef1b54f98ca2" id="commentLi5c3b83a31d56ef1b54f98ca7">  <div class="col-sm-1 col-xs-2">    <img src="/Upload/Profile/1537584524591.jpeg" class="comment-by-pic-child">  </div>  <div class="col-sm-10 col-xs-10">    <div class="comment-container">      <a href="/viewprofile/5ba5ac9d393e737dbe66f5c8" class="comment-by-user-name">Sameer Guglani</a>      <span class="dis-comment-time">11:59 PM</span><i class="fa fa-trash commentOptionButton delComOwner" onclick="deleteDisComment('5c2e5dd76992046a9ffe6db2','5c3b83a31d56ef1b54f98ca7','5c3b17d41d56ef1b54f98ca2')"></i>      <p class="comment-div-child">kflew;      </p>    </div>  </div></li></div> -->

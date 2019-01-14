@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= comm.name %> Members</title>
+
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<%- include('../partials/user/navbar',{user:user}) %>
+<div class="community-header-top communityheader-profile-mobile" style="padding-top:6px;position:relative;">
+        <div class="container pc">
+        
+    </div>
+        <center>
+            <div class="communityprofile-name-mobile" style="max-height:40px;overflow:scroll">
+              <a href="/community/communityprofile/<%= comm._id %>" style="color:white">
+                 <%= comm.id %>
+              </a>
+            </div>
+        </center>
+    
+        <center>
+          <a href="/community/communityprofile/<%= comm._id %>">
+            <img src="/images/defaultCommunity.jpg" class="mobile img-communityprofile-pic allSides" style="background:#fff">
+          </a>
+        </center>
+    
+    </div>
+    
+    <div class="container community-profile-conatiner">
+    <div class="col-sm-2 col-xs-12 center-mobile pc">
+    <a href="/community/communityprofile/<%= comm._id %>">
+      <img src="/images/defaultCommunity.jpg" class="img-communityprofile-pic allSides" style="background:#fff">
+    </a>
+    </div>
+    
+    <div class="col-sm-8 communityprofile-name-pc">
+      <a href="/community/communityprofile/<%= comm._id %>" class="communityprofile-name-pc">
+        <%= comm.name %>
+      </a>
+    </div>
+    
+    
+    <div class="col-sm-2 col-xs-12 center-mobile" style="padding-top:10px;float:right">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle commuity-profile-menu-btn" type="button" data-toggle="dropdown">
+        <i class="fa fa-bars"></i>
+      </button>
+      <ul class="dropdown-menu custom-commuity-dropdown dropdown-menu-right" style="margin-top:40px">
+    
+        
+          <li>
+              <a href="/community/discussion/<%= comm._id %>" class="community-profile-option-btn">
+                Discussions
+              </a>
+          </li>
+        
+    
+        
+          <li>
+              <a href="/community/managecommunity/<%= comm._id %>" class="community-profile-option-btn">
+                Manage Community
+              </a>
+          </li>
+        
+    
+          <li>
+              <a href="/community/communityprofile/<%= comm._id %>" class="community-profile-option-btn">
+                Community Profile
+              </a>
+          </li>
+    
+          <li>
+              <a href="/community/communitymembers/<%= comm._id %>" class="community-profile-option-btn">
+                Community Members
+              </a>
+          </li>
+    
+        </ul>
+    </div>
+    </div>
+    
+    </div>
+    <center>
+        <hr style="border-top:2px solid #E6E6E6;width:85%;margin-top:0">
+    </center>
+    
+    <!--====================================================================-->
+    <style>
+    .communitymembers-head-btn {
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 4px;
+        margin-top: 2px;
+    }
+    .active-link-btn{
+      color:rgb(73, 73, 73) !important;
+    }
+    </style>
+    <div class="container">
+    
+    <div style="margin-top:20px;margin-bottom:50px">
+      <div class="col-sm-3 col-md-3 col-xs-4 col-lg-2">
+        <a class="communitymembers-head-btn active-link-btn" onclick="AllAdminList()" id="admins-list-btn">Admins (2)</a>
+      </div>
+      <div class="col-sm-3 col-md-3 col-xs-4 col-lg-2">
+        <a class="communitymembers-head-btn" onclick="AllUsersList()" id="users-list-btn">Users (3)</a>
+      </div>
+      <div class="col-sm-12">
+            <div id="comUsersList">
+
+            </div>
+      </div>
+      </div>
+    </div>
+    
+    </div>
+    
+    </div>
+    </div>
+    </div>
+    </div> <!--Header-->
+    <script src="/js/Common.js"></script>
+<script src="/js/notie.min.js"></script>
+
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+
+    
+    <script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+    });
+    var id  = location.pathname.split('/')[3];
+    
+    function updateCountOnBtn(elmId,btntxt,count){
+      $(elmId).empty().append(btntxt+' ('+(count)+')');
+    }
+    var r;
+    AllAdminList();
+    function AllAdminList()
+    {
+        console.log(">>>>>>>>"+id+"<<<<<<<<<");
+        $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({_id:id}),
+             url: '/community/allcomadminsandowners/'+id,
+             success: function (response) {
+      res=JSON.parse(response);
+      console.log(">>>>>>>"+res.owner.name+"<<<<<<<");
+      $("#users-list-btn").removeClass('active-link-btn');
+      $("#admins-list-btn").addClass('active-link-btn');
+      $('.OwnerDivMain').css('display','inline');
+      $('.comUsersFxnCall').remove();
+    //   updateCountOnBtn('#admins-list-btn','Admins',1+admin.length);
+      var code="";
+      code = "<div class='col-sm-12 col-xs-12 allcoms community-user-div comUsersFxnCall' style='margin-top:5px;'>";
+      code += "     <div class='col-sm-2 col-xs-5' style='padding:5px;'>";
+      code += "          <a href='/viewprofile/"+res.owner._id+"'>";
+      code += "            <img src='/Upload/Profile/"+res.owner.image+"' class='community-member-pic'>";
+      code += "          </a>";
+      code += "          <span class='label label-primary'>Owner</span>";
+      code += "      </div>";
+      code += "      <div class='col-sm-10 col-xs-7 scrollable'>";
+      code += "          <a class='comusername' href='/viewprofile/"+res.owner._id+"'>"+res.owner.name+"</a>";
+      code += "      </div>";
+      code += " </div>";
+      $('#comUsersList').append(code);
+
+
+      res.admin.forEach(function(a){
+      code = "<div class='col-sm-12 col-xs-12 allcoms community-user-div comUsersFxnCall' style='margin-top:5px;'>";
+      code += "     <div class='col-sm-2 col-xs-5' style='padding:5px;'>";
+      code += "          <a href='/viewprofile/"+a._id+"'>";
+      code += "            <img src='/Upload/Profile/"+a.image+"' class='community-member-pic'>";
+      code += "          </a>";
+      code += "          <span class='label label-success'>Admin</span>";
+      code += "      </div>";
+      code += "      <div class='col-sm-10 col-xs-7 scrollable'>";
+      code += "          <a class='comusername' href='/viewprofile/"+a._id+"'>"+a.name+"</a>";
+      code += "      </div>";
+      code += " </div>";
+      $('#comUsersList').append(code);
+          
+      });
+                //    notie.alert({type: 3, text:'Something went wrong!', time: 2})
+    }
+});
+    }
+    function AllUsersList()
+    {
+
+
+      $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({_id:id}),
+             url: '/community/allcomusers/'+id,
+             success: function (response) {
+               console.log("AGYA VAPIS");
+                res=JSON.parse(response);
+      $("#admins-list-btn").removeClass('active-link-btn');
+      $("#users-list-btn").addClass('active-link-btn');
+                $('.OwnerDivMain').css('display','none');
+               $('.comUsersFxnCall').remove();
+     res.membersJoined.forEach(function(a){
+     code = "<div class='col-sm-12 col-xs-12 allcoms community-user-div comUsersFxnCall' style='margin-top:5px;'>";
+      code += "     <div class='col-sm-2 col-xs-5' style='padding:5px;'>";
+      code += "          <a href='/viewprofile/"+a._id+"'>";
+      code += "            <img src='/Upload/Profile/"+a.image+"' class='community-member-pic'>";
+      code += "          </a>";
+      code += "      </div>";
+      code += "      <div class='col-sm-10 col-xs-7 scrollable'>";
+      code += "          <a class='comusername' href='/viewprofile/"+a._id+"'>"+a.name+"</a>";
+      code += "      </div>";
+      code += " </div>";
+      $('#comUsersList').append(code);
+          
+      });
+    }
+  });
+         
+    }
+    </script>
+    </body>
+    </html>

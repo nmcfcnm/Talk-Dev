@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Error</title>
+    
+<%- include('../partials/user/headerFiles',{user:user}) %>
+  <style type="text/css">
+  	.btns{
+		margin-top:20px;
+		margin-bottom:20px;
+		margin-right:10px;
+	}
+  .errpic{
+    height: 400px;
+  }
+  @media only screen and (max-width: 768px) {
+    .errpic{
+      height: 200px;
+    }
+  }
+  .rotate {
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform
+}
+
+.rotate:hover {
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360def)
+}
+  </style>
+</head><body>
+
+<nav class="navbar navbar-default-bar no-margin" id="nav-header">
+
+  <center>
+    <h2>TalkDev</h2>
+  </center>
+
+</nav>
+
+
+  <div class="container" style="padding-top:100px">
+        <center>
+          <img src="/images/404.png" class="errpic rotate">
+        </center>
+
+        <center>
+        <div class="alert allSides" style="background:#222D3C;color:#fff;">
+          <p>
+            <strong>Error: Unable to login you are deactivated contact site admin...</strong>
+          </p></div>
+        </center>
+  </div>
+
+
+
+</body></html>

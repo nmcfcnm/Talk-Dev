@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit Profile</title>
+<% if(user.role=="admin"){ %>
+  <%- include('partials/admin/headerFiles',{user:user}) %>
+  <%- include('partials/admin/navbar',{user:user}) %>
+  <% }else{ %>
+  <%- include('partials/user/headerFiles',{user:user}) %>
+  <%- include('partials/user/navbar',{user:user}) %>
+<%  } %>
+
+<style>
+  .form-control[disabled]{
+      background-color: #f5f5f5;
+      opacity: 1;
+  }
+  .select2-dropdown{
+    display:none;
+  }
+  </style>
+
+<div class="profile-pic-center-main-div mobile">
+  <img src="/images/1537445658569.png" class="profile-pic-center allSides">
+</div>
+
+
+<div class="container">
+  <div style="margin-top:30px;">
+    <div class="col-12">
+          <div class="card allSidesSoft">
+              <div class="card-body">
+                <div class="d-flex">
+                     
+                    <form class="image-container" method="post" action="/updateProfilePic" enctype="multipart/form-data" id="profilepicform">
+                      
+                    <div class="avatar-upload">
+                        <div class="avatar-edit">
+                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                            <label for="imageUpload"></label>
+                        </div>
+                        <div class="avatar-preview">
+                            <% if(user.image==""){%>
+                            <div id="imagePreview" style="background-image: url(/images/noimage.png);"></div>
+                            <% }else{%> 
+                            <div id="imagePreview" style="background-image: url(/user_images/<%=user._id%>/<%=user.image%>);" %>"></div>
+                            <% } %>
+                        </div>
+                    </div>
+                  </form>
+                      
+
+
+
+                    <div class="ml-auto">
+                        <input type="button" class="btn btn-danger btn-sm d-none" id="btnDiscard" value="Discard Changes">
+                    </div>
+                </div>
+
+                <br>
+                <form method="post" action="http://localhost:3000/editProfile">
+                  <div class="panel-group">
+                    <!--Form panel-->
+                    <div class="panel panel-default editUserPanel">
+                      <div class="panel-heading">Basic Info</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                    <label>Email :</label>
+                                    <input type="text" value="<%= user.email %>" class="form-control" name="username" disabled="true">
+                            </div>
+                            <div class="form-group">
+                                <label>Name :</label>
+                                <input type="text" value="<%= user.name %>" class="form-control" name="name" autocomplete="off" required="">
+                            </div>
+                            <div class="form-group col-sm-5" style="padding:0">
+                                <label>DOB :</label>
+                                <input class="form-control dobDate" id="date" value="<%= user.dob %>" name="dob" placeholder="MM/DD/YYYY" type="text" autocomplete="off" required="">
+                            </div>
+                            <div class="form-group col-sm-5 col-sm-push-2" style="padding:0">
+                                    <label>Gender :</label>
+                                    <select name="gender" class="form-control">
+                                        <optgroup label="Select Gender">
+                                        
+                                        <% if(user.gender=="male"){%>
+                                          <option value="male" selected="">Male</option>
+                                          <option value="female" >Female</option>
+                                          <option value="transgender" >Transgender</option>
+                                        <% } else if(user.gender=="female"){ %>
+                                          <option value="male" >Male</option>
+                                          <option value="female" selected="">Female</option>
+                                          <option value="transgender" >Transgender</option>
+                                        <% }else{ %>
+                                            <option value="male" >Male</option>
+                                            <option value="female" >Female</option>
+                                            <option value="transgender" selected>Transgender</option>
+                                        <% } %>
+                                      </optgroup>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default editUserPanel">
+                      <div class="panel-heading">Contact Info</div>
+                        <div class="panel-body">
+                          <div class="form-group">
+                                  <label>Phone :</label>
+                                  <input type="text" value="<%= user.phone %>" class="form-control" name="phone" maxlength="10" required="">
+                          </div>
+                          <div class="form-group">
+                                  <label>City :</label>
+                                  <input type="text" value="<%= user.city %>" class="form-control" name="city" required="">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="panel panel-default editUserPanel">
+                        <div class="panel-heading">Personal Info</div>
+                          <div class="panel-body">
+
+                            <div class="form-group">
+                              <label>Interests :</label>
+                              <div class="tag-conatiner-custom-div">
+                                <select id="interestsEditor" name="interest" class="form-control input-sm select2-multiple select2-hidden-accessible" style="width:100%" multiple="" tabindex="-1" aria-hidden="true">
+                                  <!--Tags option appended here-->
+                                
+                                    
+
+                                  
+                                </select><span class="select2 select2-container select2-container--bootstrap" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple form-control input-sm" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Enter interests..." style="width: 100%;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <label>Tell us a bit more about your journey:</label>
+                                    <textarea type="text" class="form-control" name="journey"><%= user.journey %></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                    <label>What are your expectations from the communities?</label>
+                                    <textarea type="text" class="form-control" name="expectation"><%= user.expectation %></textarea>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      <br>
+
+                      <div class="form-group">
+                        
+                              <a href="/changePassword" class="btn btn-warning pull-left btnEditForm" style="margin:1px">Change Password</a>
+                        
+                              <a href="/profile" class="btn btn-danger pull-right btnEditForm" style="margin:1px">Cancel</a>
+                              <input type="submit" class="btn btn-primary pull-right btnEditForm" style="margin:1px" value="Update">
+                      </div>
+
+                    </div>
+                </form>
+              </div>
+         </div>
+      </div>
+  </div>
+</div>
+
+<br>
+
+</div>
+</div>
+</div>
+</div> <!--Header-->
+<script>
+    $(document).ready(function() {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
+    });
+    </script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<script src="/js/Common.js"></script>
+<script src="/js/UserProfile.js"></script>
+<script src="/js/select2.min.js"></script>
+
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#edit-profile-nav').addClass('active');
+</script>
+
+<script>
+var date=OnlyDate($('.dobDate').val());
+if(date.length==10){
+  $('.dobDate').val(date);
+} else {
+  $('.dobDate').attr("placeholder", date);
+}
+
+$(document).ready(function(){
+        var date_input=$('input[name="dob"]');
+        date_input.datepicker({
+            todayHighlight: true,
+            format: 'mm/dd/yyyy',
+            autoclose: true,
+            orientation: "auto top"
+        })
+    })
+</script>
+<script>
+if(vali.existDecument($('#interestsEditor')))
+{
+  $( "#interestsEditor" ).select2({
+    theme: "bootstrap",
+    tags: true,
+    placeholder: "Enter interests...",
+    tokenSeparators: [',', ' '],
+    containerCssClass: ':all:'
+  });
+}
+$('.select2-search__field').css('width','100%')
+</script>
+
+    <% if(user.role=="admin" && user.adminAsUser==false){ %>
+      <%- include('partials/admin/footer',{user:user}) %>
+      <% } %>
+      </body>
+      </html>
+<!--footer-->

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Community List</title>
+
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<%- include('../partials/user/navbar',{user:user}) %>
+  
+<style>
+    .community-name {
+        border: 0;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        word-wrap: break-word;
+        font-size: 17px;
+        padding:12px 0 0 0;
+        outline: none !important;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    .community-description {
+        border: 0;
+        font-family: 'Open Sans', sans-serif;
+        word-wrap: break-word;
+        font-size: 16px;
+        color: #000;
+        outline: none !important;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    .totalUsers {
+        padding:0;
+        margin:0;
+        font-weight: 600;
+        color: #7D7D7D;
+        text-decoration: none;
+        word-wrap: break-word;
+        text-transform: capitalize;
+    }
+    .community-description-full{
+      display:none;
+    }
+    @media(max-width:768px){
+      .community-name{
+          border: 0;
+          font-family: 'Open Sans', sans-serif;
+          font-weight: bold;
+          padding:15px 0 0 5px;
+          overflow:scroll;
+          word-wrap: break-word;
+          font-size: 15px;
+          color: #000;
+          outline: none !important;
+          background-color: rgba(0, 0, 0, 0);
+      }
+    }
+    </style>
+      <!--=======================================================-->
+      <div class="community-header-top" style="height:50px;padding-top:6px;">
+        <div class="col-sm-4 community-sub-head">
+            <a class="btn community-head-btn" href="/community/communitypanel">
+              <i class="fa fa-users"></i>
+            </a>
+            <a class="btn community-head-btn active" style="margin-left:10px" href="/community/list">
+              <i class="fa fa-search"></i>
+            </a>
+        </div>
+        <div class="col-sm-4 col-sm-push-4 pc" style="padding:0 50px 0 0">
+          <input class="form-control searchCommunityDiscover" type="text" placeholder="Search Community...">
+        </div>
+      </div>
+      
+        <div class="community-header-top mobile" style="width:100%;padding-top:6px;background-image: linear-gradient(to top, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);">
+          <div class="col-sm-4 col-xs-10 col-xs-push-1">
+            <input class="form-control searchCommunityDiscover" type="text" placeholder="Search Community...">
+          </div>
+        </div>
+      <!--=======================================================-->
+          <div class="col-sm-12">
+              
+              <br>
+            <div class="container">
+              <div class="search" id="search">
+                    <!--Community List-->
+                    <% c.forEach(function(comm){ %>
+              <div class="container mainDivDiscover-container" style="padding:0" id="mainDivDiscover<%= comm._id %>">
+                <div class="panel community-show-item panel-default allSidesSoft" style=" padding:0;background:white;">
+                    <div class="panel-body" style="padding:0;padding-top:20px">  <div class="col-sm-2 col-xs-3 col-lg-1 col-md-2">
+                        <a href="/community/communityprofile/<%= comm._id %>">
+                            <img src="/images/defaultCommunity.jpg" class="allSides" style="height:70px;width:70px;border:3px solid rgb(235, 235, 235)">
+                        </a>
+                    </div>
+                    <div class="col-sm-8 col-xs-6 col-lg-8 col-md-8 community-name">
+                        <a href="/community/communityprofile/<%= comm._id %>" class="community-name">
+                            <%= comm.name %>  
+                        </a>
+                    </div>
+                    <div class="col-sm-2 col-xs-3 col-lg-3 col-md-2" style="padding:15px 10px 0 10px">
+                        <div id="joinBtns<%= comm._id %>">
+                            <% if(comm.communityType=="public"){ %>
+                            <button class="btn btn-primary btn-sm pull-right" id="btn<%= comm._id %>" onclick="getBtnValue('<%= comm._id %>');" data-id="0">
+                             Join
+                            </button>
+                            <% }else{ %>
+                            <button class="btn btn-primary btn-sm pull-right" id="btn<%= comm._id %>" onclick="getBtnValue('<%= comm._id %>');" data-id="0">
+                            Ask To Join
+                            </button>
+                            <% } %>                                  
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding:10px 0 10px 0;">
+                    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
+                        <p class="totalUsers">
+                            <%= comm.membersJoinedCount %> Members
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 community-description" style="font-size:16px">
+                        <div id="less<%= comm._id %>" class="community-description">
+                            <%= comm.info %>
+                        </div>
+                        <div id="more<%= comm._id %>" class="community-description community-description-full">
+                            <%= comm.info %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <% }); %>
+        </div>
+            </div>
+      
+          </div>
+      </div>
+      <script>
+    function getBtnValue(id)
+    {
+        $.ajax({
+        type: "POST",
+        url: "/joinCommunityRequest",
+        data: JSON.stringify({id : id}),
+        contentType: 'application/json',
+         success: function(response)
+         {
+            res=JSON.parse(response);
+            if(res.type=='public')
+            {
+                $("#btn"+id).text("Joined").attr("disabled", "disabled").css('background-color','red');
+            }
+            else
+            {
+                $("#btn"+id).text("Requested").attr("disabled", "disabled").css('background-color','red');
+            }
+            $("#mainDivDiscover"+id+"").fadeOut();
+            setTimeout(function(){ 
+                var child= document.getElementById("mainDivDiscover"+id);
+                child.parentNode.removeChild(child); 
+                console.log(res.type);
+
+            }, 2000);
+            
+         }
+            
+ 
+     //   tasks.forEach(function(task) {
+     //     var li = document.createElement('li');
+     //     li.innerHTML = renderTaskTemplate({ task: task.text });
+     // 	i++;
+     // 	li.setAttribute("id",i);
+     //     taskList.appendChild(li);
+     //   });
+    //  var c=0;
+    //          var res = (JSON.parse(response));
+    //          var table=document.getElementById("table");
+    //          table.innerHTML="";
+    //          console.log("<<"+res[0].email+">>");
+    //          res.forEach(user => {
+    //              var row = table.insertRow(c);
+    //              var email = row.insertCell(0);
+    //              var phone = row.insertCell(1);
+    //              var city = row.insertCell(2);
+    //              var status = row.insertCell(3);
+    //              var role = row.insertCell(4);
+    //              var actions = row.insertCell(5);
+    //              email.innerHTML = user.email;
+    //              phone.innerHTML = user.phone;
+    //              city.innerHTML = user.city;
+    //              status.innerHTML = user.status;
+    //              role.innerHTML = user.role;
+    //              actions.innerHTML="<center><a class=\"btn btn-primary btn-sm emailbtn actionbtns\" style=\"background:#000\"><span class=\"fa fa-envelope\" style=\"color:#fff\"></span></a>";
+    //              actions.innerHTML+="<a class=\"btn btn-primary btn-sm editbtn actionbtns\"><span class=\"fa fa-edit\"></span\></a>";
+    //              actions.innerHTML+="<a class=\"btn btn-warning btn-sm activebtn actionbtns\" ><span class=\"fa fa-times-circle\"></span\></a></center>";
+    //              c++;
+    //          });
+        //    }
+         
+     });
+    }
+   </script>
+   
+<div class="endLoader">
+    <center><img src="/app_pics/bg/loading.gif" class="loading"/></center>
+</div>
+
+<script src="/js/Common.js"></script>
+<script src="/js/Discover.js"></script>
+
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+
+</body>
+</html>

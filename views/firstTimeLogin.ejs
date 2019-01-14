@@ -1,0 +1,217 @@
+<html>
+
+<head>
+  <title>Edit Profile</title>
+<%- include('partials/user/headerFiles',{user:user}) %>
+</head>
+
+
+<nav class="navbar navbar-default-bar no-margin" id="nav-header">
+
+    <div class="navbar-header fixed-brand">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+                   <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+              </button>
+      
+       <a class="navbar-brand" href="/community/communitypanel#">Oneness</a>
+    </div>
+
+          <div class="none-mobile-view-dp">
+                   <img src="/images/default.png" style="height: 40px" class="profilePic">
+        
+        <span class="label label-warning" style="float:right;margin-top:22px;"><%= user.name %></span>
+           </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+       <ul class="nav navbar-nav">
+          <li class="">
+            
+               <button onclick="logout()" class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-pc">
+                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true">
+                                 </span>
+               </button>
+             
+          </li>
+       </ul>
+    </div>
+</nav>
+
+<div id="page-content-wrapper" style="padding:0;margin-top:60px"> <!--Margin Top is new-->
+       <div class="container-fluid page-content-div" style="padding:0">
+          <div class="row">
+             <div class="col-lg-12 scoll-possible" style="padding:0">
+
+
+
+
+<style>
+.form-control[disabled]{
+  background-color: #f5f5f5;
+  opacity: 1;
+}
+.select2-dropdown{
+display:none;
+}
+</style>
+
+<div class="profile-pic-center-main-div mobile">
+<img src="/images/default.png" class="profile-pic-center allSides">
+</div>
+
+
+<div class="container">
+<div style="margin-top:30px;">
+  <div class="col-12">
+        <div class="card allSidesSoft">
+            <div class="card-body">
+              <div class="d-flex">
+                  <form class="image-container" method="post" action="/updateProfilePic" enctype="multipart/form-data" id="profilepicform">
+                      <img src="/default.png" id="user-profile-image" style="width: 150px; height: 150px" class="img-thumbnail allSidesSoft">
+                      <div class="middle">
+                          <input type="button" class="btn btn-default btn-sm" id="changeProfilePicBtn" value="Change">
+                          <input type="file" style="display: none;" id="profileUpload" name="profilePhoto">
+                      </div>
+                  </form>
+                  <div class="ml-auto">
+                      <input type="button" class="btn btn-danger btn-sm d-none" id="btnDiscard" value="Discard Changes">
+                  </div>
+              </div>
+
+              <br>
+              <form method="post" action="/firstTimeLogin">
+                <div class="panel-group">
+                  <!--Form panel-->
+                  <div class="panel panel-default editUserPanel">
+                    <div class="panel-heading">Basic Info</div>
+                      <div class="panel-body">
+                          <div class="form-group">
+                                  <label>Email :</label>
+                                  <input type="text" value="<%= user.email %>" class="form-control" name="username" disabled="true">
+                          </div>
+                          <div class="form-group">
+                              <label>Name :</label>
+                              <input type="text" value="<%= user.name %>" class="form-control" name="fullname" autocomplete="off" required="">
+                          </div>
+                          <div class="form-group col-sm-5" style="padding:0">
+                              <label>DOB :</label>
+                              <input class="form-control dobDate" id="date" value="<%= user.dob %>" name="dob" placeholder=" Not Updated" type="text" autocomplete="off" required="">
+                          </div>
+                          <div class="form-group col-sm-5 col-sm-push-2" style="padding:0">
+                                  <label>Gender :</label>
+                                  <select name="gender" class="form-control">
+                                      <optgroup label="Select Gender">
+                                      <option value="male" selected>Male</option>
+                                      <option value="female">Female</option>
+                                  
+
+                                  
+                                      <option value="transgender">Transgender</option>
+                                  
+                                  </optgroup>
+                                  </select>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="panel panel-default editUserPanel">
+                    <div class="panel-heading">Contact Info</div>
+                      <div class="panel-body">
+                        <div class="form-group">
+                                <label>Phone :</label>
+                                <input type="text" value="<%= user.phone %>" class="form-control" name="phone" maxlength="10" required="">
+                        </div>
+                        <div class="form-group">
+                                <label>City :</label>
+                                <input type="text" value="<%= user.city %>" class="form-control" name="city" required="">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="panel panel-default editUserPanel">
+                      <div class="panel-heading">Personal Info</div>
+                        <div class="panel-body">
+
+                          <div class="form-group">
+                            <label>Interests :</label>
+                            <div class="tag-conatiner-custom-div">
+                              <select id="interestsEditor" name="interests" class="form-control input-sm select2-multiple select2-hidden-accessible" style="width:100%" multiple="" tabindex="-1" aria-hidden="true">
+                                <!--Tags option appended here-->
+                                
+                                  
+
+                                
+                              </select><span class="select2 select2-container select2-container--bootstrap" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple form-control input-sm" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Enter interests..." style="width: 100%;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                                  <label>Tell us a bit more about your journey:</label>
+                                  <textarea type="text" class="form-control" name="aboutjourney"></textarea>
+                          </div>
+
+                          <div class="form-group">
+                                  <label>What are your expectations from the communities?</label>
+                                  <textarea type="text" class="form-control" name="comExpectations"></textarea>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    <br>
+
+                    <div class="form-group">
+                      
+                            <input type="submit" class="btn btn-primary pull-right btnEditForm" style="margin:1px" value="Update">
+                    </div>
+
+                  </div>
+              </form>
+            </div>
+       </div>
+    </div>
+</div>
+</div>
+
+<br>
+
+</div>
+</div>
+</div>
+</div> <!--Header-->
+
+<%- include('partials/user/footerFiles',{user:user}) %>
+
+<script>
+var date=OnlyDate($('.dobDate').val());
+if(date.length==10){
+$('.dobDate').val(date);
+} else {
+$('.dobDate').attr("placeholder", date);
+}
+
+$(document).ready(function(){
+      var date_input=$('input[name="dob"]');
+      date_input.datepicker({
+          todayHighlight: true,
+          format: 'mm/dd/yyyy',
+          autoclose: true,
+          orientation: "auto top"
+      })
+  })
+</script>
+<script>
+if(vali.existDecument($('#interestsEditor')))
+{
+$( "#interestsEditor" ).select2({
+  theme: "bootstrap",
+  tags: true,
+  placeholder: "Enter interests...",
+  tokenSeparators: [',', ' '],
+  containerCssClass: ':all:'
+});
+}
+$('.select2-search__field').css('width','100%')
+</script>
+
+</body>
+</html>

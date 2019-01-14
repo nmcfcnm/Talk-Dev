@@ -1,0 +1,24 @@
+<% commPopulated.JoinedCommunties.forEach(function(comm){ %>
+    <div class="col-sm-12 col-xs-12 joinedCommunity community-div" style="margin-top:5px;" id="can<%= comm._id %>">
+       <div class="col-sm-1 col-xs-3" style="padding:10px;z-index:1">
+         <a href="/community/discussion/<%= comm._id %>">
+           <% if(comm.image==""){%>
+             <img src="/images/nocommunityimage.png" class="cpic">
+             <%}else {%>
+                 <img src="<%= comm.image %>" class="cpic">
+             <% }%>
+         </a>
+       </div>
+       <div class="col-sm-10 col-xs-7" style="padding-top:25px;padding-bottom:5px;overflow:scroll">
+         <p style="margin:0">
+           <a class="comnametxt" href="/community/discussion/<%= comm._id %>">
+             <%= comm.name %>
+           </a>&nbsp;&nbsp;&nbsp;<a class="comnametxt-user" href="/community/communitymembers/">Members(<%= comm.membersCount%>)</a>
+         </p>
+     </div>
+     <div class="col-sm-1 col-xs-2" style="padding:0">
+     </div>
+</div>
+    <% }); %>
+
+     

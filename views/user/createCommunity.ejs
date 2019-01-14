@@ -1,0 +1,136 @@
+
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<%- include('../partials/user/navbar',{user:user}) %>
+<link rel="stylesheet" href="./css/trumbowyg.css">
+
+<!--====================================================================-->
+<div class="community-header-top" style="height:50px;padding-top:6px;">
+<div class="col-sm-12 community-sub-head">
+    <a class="btn community-head-btn active" href="/community/communitypanel">
+      <i class="fa fa-users"></i>
+    </a>
+    <a class="btn community-head-btn" style="margin-left:10px" href="/community/list">
+      <i class="fa fa-search"></i>
+    </a>
+</div>
+</div>
+<!--====================================================================-->
+<style>
+@media(max-width:768px){
+  .form-group{
+    padding:0 10px 0 10px;
+  }
+}
+</style>
+<div class="align-center-all">
+  <div class="container">
+    <div class="form-horizontal col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="form-horizontal col-sm-6 col-md-6 col-lg-6">
+        <h3 class="page-header" style="color:#707070">Create Community</h3>
+        
+        <form action="/community/AddCommunity" method="POST" >
+            <div class="form-group">
+                <input class="form-control" type="text" required="" name="communityName" placeholder="Name" maxlength="70">
+            </div>
+            <div class="form-group">
+                    <label>Give Desc Here</label><input class="form-control" type="text" name="communityDesc" placeholder="Description" maxlength="70">
+                </div>
+                
+            <!-- <div class="form-group">
+                    <label style="color:#707070">Description</label>
+                    <div class="trumbowyg-box trumbowyg-editor-visible trumbowyg-en trumbowyg"><div class="trumbowyg-button-pane"><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-undo-button " title="Undo (Ctrl + Z)" tabindex="-1"><svg><use xlink:href="#trumbowyg-undo"></use></svg></button><button type="button" class="trumbowyg-redo-button " title="Redo (Ctrl + Y)" tabindex="-1"><svg><use xlink:href="#trumbowyg-redo"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-formatting-button trumbowyg-open-dropdown" title="Formatting" tabindex="-1"><svg><use xlink:href="#trumbowyg-p"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-strong-button " title="Strong (Ctrl + B)" tabindex="-1"><svg><use xlink:href="#trumbowyg-strong"></use></svg></button><button type="button" class="trumbowyg-em-button " title="Emphasis (Ctrl + I)" tabindex="-1"><svg><use xlink:href="#trumbowyg-em"></use></svg></button><button type="button" class="trumbowyg-del-button " title="Deleted" tabindex="-1"><svg><use xlink:href="#trumbowyg-del"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-superscript-button " title="Superscript" tabindex="-1"><svg><use xlink:href="#trumbowyg-superscript"></use></svg></button><button type="button" class="trumbowyg-subscript-button " title="Subscript" tabindex="-1"><svg><use xlink:href="#trumbowyg-subscript"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-horizontalRule-button " title="Insert horizontal rule" tabindex="-1"><svg><use xlink:href="#trumbowyg-horizontal-rule"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-unorderedList-button " title="Unordered list" tabindex="-1"><svg><use xlink:href="#trumbowyg-unordered-list"></use></svg></button><button type="button" class="trumbowyg-orderedList-button " title="Ordered list" tabindex="-1"><svg><use xlink:href="#trumbowyg-ordered-list"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-link-button trumbowyg-open-dropdown" title="Link" tabindex="-1"><svg><use xlink:href="#trumbowyg-link"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-justifyLeft-button " title="Align Left" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-left"></use></svg></button><button type="button" class="trumbowyg-justifyCenter-button " title="Align Center" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-center"></use></svg></button><button type="button" class="trumbowyg-justifyRight-button " title="Align Right" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-right"></use></svg></button><button type="button" class="trumbowyg-justifyFull-button " title="Align Justify" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-full"></use></svg></button></div><div class="trumbowyg-button-group trumbowyg-right"><button type="button" class="trumbowyg-fullscreen-button trumbowyg-not-disable" title="Fullscreen" tabindex="-1"><svg><use xlink:href="#trumbowyg-fullscreen"></use></svg></button></div></div><div class="trumbowyg-editor" contenteditable="true" dir="ltr"></div><textarea class="form-control trumbowyg-textarea" rows="10" id="description" name="communityDescription" style="overflow: hidden; height: 260px;" required="" tabindex="-1"></textarea><div class="trumbowyg-dropdown-formatting trumbowyg-dropdown trumbowyg-fixed-top" data-trumbowyg-dropdown="formatting" style="display: none;"><button type="button" class="trumbowyg-p-dropdown-button"><svg><use xlink:href="#trumbowyg-p"></use></svg>Paragraph</button><button type="button" class="trumbowyg-blockquote-dropdown-button"><svg><use xlink:href="#trumbowyg-blockquote"></use></svg>Quote</button><button type="button" class="trumbowyg-h1-dropdown-button"><svg><use xlink:href="#trumbowyg-h1"></use></svg>Header 1</button><button type="button" class="trumbowyg-h2-dropdown-button"><svg><use xlink:href="#trumbowyg-h2"></use></svg>Header 2</button><button type="button" class="trumbowyg-h3-dropdown-button"><svg><use xlink:href="#trumbowyg-h3"></use></svg>Header 3</button><button type="button" class="trumbowyg-h4-dropdown-button"><svg><use xlink:href="#trumbowyg-h4"></use></svg>Header 4</button></div><div class="trumbowyg-dropdown-link trumbowyg-dropdown trumbowyg-fixed-top" data-trumbowyg-dropdown="link" style="display: none;"><button type="button" class="trumbowyg-createLink-dropdown-button" title=" (Ctrl + K)"><svg><use xlink:href="#trumbowyg-create-link"></use></svg>Insert link</button><button type="button" class="trumbowyg-unlink-dropdown-button"><svg><use xlink:href="#trumbowyg-unlink"></use></svg>Remove link</button></div><div class="trumbowyg-overlay"></div></div>
+            </div> -->
+            <div class="form-group ">
+                <label style="color:#707070">Rule :</label>
+                <input class="radio radio-inline" type="radio" checked="" value="public" name="communityMembershipRule"> Direct
+                <input class="radio radio-inline" type="radio" value="private" name="communityMembershipRule"> Permission
+            </div>
+            <div class="form-group" style="display:none;">
+                <input class="form-control" id="file" name="communityImage" type="file">
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-4 col-sm-3">
+                <span class="btn btn-warning" onclick="$(&#39;#file&#39;).click()">Upload Image</span>
+              </div>
+              <div class="col-xs-8 col-sm-9" style="overflow: scroll;white-space: nowrap;">
+                <p id="filename" style="font-size:18px;font-weight:bold;color:#707070"></p>
+              </div>
+            </div>
+
+            <div class="form-group" style="display:none">
+              <div class="col-xs-1 col-sm-1">
+                  <input type="checkbox" class="checkbox-custom" style="outline: none;" id="check" onchange="appendData()">
+              </div>
+              <div class="col-xs-8 col-sm-9" style="font-weight:bold;margin-top:5px;color:#707070">
+                  Local Community
+              </div>
+            </div>
+
+            <div class="form-group" id="dynamic">
+
+            </div>
+            <div class="form-group">
+                    <input class="form-control btn btn-primary" type="submit" value="Create Community">
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div> <!--Header-->
+<script src="./js/Common.js.download"></script>
+
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#add-community-nav').addClass('active');
+</script>
+
+<script src="./js/trumbowyg.min.js.download"></script>
+<script type="text/javascript">
+      function appendData(){
+          if($('#check').is(':checked'))
+              $('#dynamic').append('<input type="text" class="form-control" name="communityLocation" placeholder="Location" equired />');
+          else
+          {
+              $('#dynamic').empty();
+          }
+  }
+</script>
+<script>
+$(document).ready(function(){
+    $('#file').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('#filename').text(fileName);
+    });
+});
+
+$.trumbowyg.svgPath = '/Plugins/maileditor/icons.svg';
+$('#description').trumbowyg({
+  btnsDef: {
+        alert: {
+            fn: function() {
+                alert('some text')
+            },
+            ico: 'blockquote'
+        }
+    },
+
+  autogrow: true,
+  btns: [
+   ['undo', 'redo'],
+   ['formatting'],
+   ['strong', 'em', 'del'],
+   ['superscript', 'subscript'],
+   ['horizontalRule'],
+   ['unorderedList', 'orderedList'],
+   ['link'],
+   ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+   ['fullscreen']
+]
+});
+  </script>
+<%- include('../partials/user/footer',{user:user}) %>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Invite to <%= comm.name %></title>
+
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<%- include('../partials/user/navbar',{user:user}) %>
+<div class="community-header-top communityheader-profile-mobile" style="padding-top:6px;position:relative;">
+    <div class="container pc">
+    
+</div>
+    <center>
+        <div class="communityprofile-name-mobile" style="max-height:40px;overflow:scroll">
+          <a href="/community/communityprofile/<%= comm._id %>" style="color:white">
+             <%= comm.name %>
+          </a>
+        </div>
+    </center>
+
+    <center>
+      <a href="/community/communityprofile/<%= comm._id %>">
+        <img src="/images/defaultCommunity.jpg" class="mobile img-communityprofile-pic allSides" style="background:#fff">
+      </a>
+    </center>
+
+</div>
+
+<div class="container community-profile-conatiner">
+<div class="col-sm-2 col-xs-12 center-mobile pc">
+<a href="/community/communityprofile/<%= comm._id %>">
+  <img src="/images/defaultCommunity.jpg" class="img-communityprofile-pic allSides" style="background:#fff">
+</a>
+</div>
+
+<div class="col-sm-8 communityprofile-name-pc">
+  <a href="/community/communityprofile/<%= comm._id %>" class="communityprofile-name-pc">
+    <%= comm.name %>
+  </a>
+</div>
+
+
+<div class="col-sm-2 col-xs-12 center-mobile" style="padding-top:10px;float:right">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle commuity-profile-menu-btn" type="button" data-toggle="dropdown">
+    <i class="fa fa-bars"></i>
+  </button>
+  <ul class="dropdown-menu custom-commuity-dropdown dropdown-menu-right" style="margin-top:40px">
+
+    
+      <li>
+          <a href="/community/discussion/<%= comm._id %>" class="community-profile-option-btn">
+            Discussions
+          </a>
+      </li>
+    
+
+    
+      <li>
+          <a href="/community/managecommunity/<%= comm._id %>" class="community-profile-option-btn">
+            Manage Community
+          </a>
+      </li>
+    
+
+      <li>
+          <a href="/community/communityprofile/<%= comm._id %>" class="community-profile-option-btn">
+            Community Profile
+          </a>
+      </li>
+
+      <li>
+          <a href="/community/communitymembers/<%= comm._id %>" class="community-profile-option-btn">
+            Community Members
+          </a>
+      </li>
+
+    </ul>
+</div>
+</div>
+
+</div>
+<center>
+    <hr style="border-top:2px solid #E6E6E6;width:85%;margin-top:0">
+</center>
+
+
+
+<div class="container">
+  <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12" style="border-bottom:1px solid #6F6E6E">
+    <a href="/community/manageCommunity/<%= comm._id %>" class="manageCommunity-head-btn" style="color:#337AB7">
+      Manage Community
+    </a>
+    <nonlink style="float:right;font-weight:600;margin:0;color:#6F6E6E;cursor: context-menu;">
+      Invite Users
+    </nonlink>
+    
+      <a class="pc" href="/community/editcommunity/<%= comm._id %>" style="float:right;font-weight:600;margin-right:15px">
+        Edit Commuity
+      </a>
+    
+  </div>
+  <div class="col-sm-4 col-lg-4 col-md-4 col-xs-12 manageCommunity-commuity-div">
+
+    <input type="text" class="form-control" id="finding-input" placeholder="Enter name..." style="margin-top:4px;" onkeyup="findUsers()">
+
+  </div>
+  <div class="col-sm-8 col-lg-8 col-md-8 col-xs-12" style="border-left:1px solid #CCCCCC">
+    <div id="comlist">
+
+
+                                                                                                                          <div class="col-sm-12 col-xs-12 allcoms community-user-div" style="margin-top:5px;"><div class="col-sm-2 col-xs-3" style="padding:5px;"><img src="/images/default.png" class="community-member-pic"></div><div class="col-sm-8 col-xs-6 scrollable"><a class="comusername" href="/viewprofile/5c286cee6992046a9ffe6d7c">abcd</a></div><div class="col-sm-2 col-xs-3"><a class="btn btn-primary btn-sm invite-btn" style="float:right" onclick="inviteUser(&quot;5c286cee6992046a9ffe6d7c&quot;,&quot;abcd@gmail.com&quot;)">Invite</a></div></div><div class="col-sm-12 col-xs-12 allcoms community-user-div" style="margin-top:5px;"><div class="col-sm-2 col-xs-3" style="padding:5px;"><img src="/images/default.png" class="community-member-pic"></div><div class="col-sm-8 col-xs-6 scrollable"><a class="comusername" href="/viewprofile/5c2068606992046a9ffe6d36">arunways</a></div><div class="col-sm-2 col-xs-3"><a class="btn btn-primary btn-sm invite-btn" style="float:right" onclick="inviteUser(&quot;5c2068606992046a9ffe6d36&quot;,&quot;arunways@gmail.com&quot;)">Invite</a></div></div></div>
+  </div>
+</div>
+
+
+
+</div> <!--Header-->
+<script src="/js/Common.js"></script>
+<script src="/js/notie.min.js"></script>
+
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+
+<script>
+  var link = window.location.href
+  var id  = link.substring(link.lastIndexOf('/') + 1);
+  $('.allcoms').remove();
+  $('#comlist').append("\
+  <div class='col-sm-12 allcoms well well-sm' style='margin-top:5px;font-weight:bold' id=''>\
+  <center>No any user</center>\
+  </div>\
+  ");
+  var findtext = '';
+  function findUsers() {
+     var old = findtext;
+     findtext = $('#finding-input').val().trim();
+     findtext = findtext.replace(/\\/g, "");
+     $('#finding-input').val(findtext);
+     if(findtext != old) {
+       if(findtext.length!=0){
+         flag=true;
+       } else {
+           $('.allcoms').remove();
+           $('#comlist').append("\
+           <div class='col-sm-12 allcoms well well-sm' style='margin-top:5px;font-weight:bold' id=''>\
+           <center>No any user</center>\
+           </div>\
+           ");
+           flag=false;
+       }
+     } else {
+       flag=false;
+     }
+     old = findtext;
+     if(flag){
+       UserList(findtext);
+     }
+  }
+
+  function UserList(findtext)
+  {
+    $.ajax({
+           type: 'POST',
+           contentType: 'application/json',
+           data: JSON.stringify({commid:id,find:findtext}),
+           url: '/community/invite/'+id,
+           success: function (response) {
+             $('.allcoms').remove();
+             var res = (JSON.parse(response));
+
+             if(res.length==0)
+             {
+                   $('#comlist').append("\
+                   <div class='col-sm-12 allcoms well well-sm' style='margin-top:5px;font-weight:bold' id=''>\
+                   <center><span style='color:red'>Not found !</span> please add full email</center>\
+                   </div>\
+                   ");
+             } else {
+                //  res.forEach(element => {
+                //  });
+                     
+                
+                console.log(res);
+
+                   for(i=0;i<res.length;i++)
+                   {
+                     code="<div class='col-sm-12 col-xs-12 allcoms community-user-div' id='user"+res[i]._id+"' style='margin-top:5px;'>";
+                     code +="<div class='col-sm-2 col-xs-3' style='padding:5px;'>";
+                     code +="<img src='/Upload/Profile/"+res[i].image+"' class='community-member-pic'>";
+                     code +="</div>";
+                     code +="<div class='col-sm-8 col-xs-6 scrollable'>";
+                     code +="<a class='comusername' href='/viewprofile/"+res[i]._id+"'>"+res[i].name+"</a>";
+                     code +="</div>";
+                     code +="<div class='col-sm-2 col-xs-3'>";
+
+                     code +="<a class='btn btn-primary btn-sm invite-btn' style='float:right' onclick='inviteTheUser(\""+res[i]._id+"\",\""+res[i].name+"\")'>";
+                     code +="Invite</a>";
+
+                     code +="</div>";
+                     code +="</div>";
+                     $('#comlist').append(code);
+                   }
+              }
+           },
+           error: function (err) {
+               notie.alert({type: 3, text:'Something went wrong!', time: 2})
+           }
+       });
+  }
+
+  function inviteTheUser(user,email) {
+
+               
+    $.ajax({
+           type: 'POST',
+           contentType: 'application/json',
+           data: JSON.stringify({commid:id,userid:user}),
+           url: '/community/inviteUser/'+id,
+           success: function (response) {
+               UserList(findtext);
+               console.log(">>>>>user"+user+"<<<<<<<<");
+               notie.alert({type: 1, text: 'Invitation sent to '+email , time: 2})
+           },
+           error: function (err) {
+               notie.alert({type: 3, text:'Something went wrong!', time: 2})
+           }
+       });
+  }
+
+</script>
+    
+
+</div></div></div></div>
+<%- include('../partials/user/footer',{comm:comm}) %>

@@ -1,0 +1,174 @@
+<div id="FeaturedParentDiv">
+<% comm.posts.forEach(function(post){ %>
+    <% if(post.featured==true){%>
+
+    <div class="container discussion-container " id="<%= post._id %>">
+        <div class="panel panel-default allSidesSoft" style="background:white;" id="panel-default<%= post._id %>">
+                <span class="badge featured-label" id="featured<%= post._id %>">Featured</span>    
+                <% if(post.global){ %>
+                <span class="badge global-label" id="global<%= post._id %>">Global</span>
+                <% } %>
+                <div class="dropup open">
+                    <a class="discussion-dropdown-menu" data-toggle="dropdown" style="float:right !important" aria-expanded="true">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-discussion">
+                        <li><a class="request-dropdown-options" onclick="deleteThePost('<%= comm._id %>','<%= post._id %>')">Delete</a></li>           <li id="featuredBtnLi<%= post._id %>">               <a class="request-dropdown-options" onclick="makeThisFeatured('<%= comm._id %>','<%= post._id %>',this)" id="featuredBtn<%= post._id %>">UnFeature</a>            </li>           <li id="globalBtnLi<%= post._id %>">               <a class="request-dropdown-options" onclick="makeThisGlobal('<%= comm._id %>','<%= post._id %>',this)" id="globalBtn<%= post._id %>">
+                            
+                            
+                            <% if(post.global==true){ %>
+                            Unpublish from TalkDev
+                            <% }else if(post.global==false){ %>
+                            Publish to TalkDev
+                            <% } %>
+
+                        </a>            </li>         </ul>       </div>
+            <div class="panel-body" style="padding:0;padding-top:10px">
+                <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-title">
+                    <a class="discussion-title" href="/community/selecteddiscussion/<%= comm._id %>/<%= post._id %>" target="_blank"><%= post.title %></a>
+                </div>
+                <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-head">
+                    posted by 
+                    <a href="/viewprofile/<%= post.createdById %>">
+                        <%= post.createdByName %>
+                    </a>
+                     on  <%= post.createdOn %>    
+                    </div>  
+                </div>  
+                <div class="panel-body" style="padding:0;padding-top:10px;">
+                    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-content" style="font-size:16px">
+                            <%= post.info %>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding:0;padding-top:10px;">
+                    <div class="col-sm-4 col-md-3 col-lg-2 col-xs-8">
+                        <a class="comment-btn-discussion" onclick="showCommentsAction('<%= post._id %>',0)" id="showComments<%= post._id %>">
+                            <i class="fa fa-comment-alt"></i> <%= post.commentsCount %><mobilenone>comments</mobilenone>
+                        </a>
+                        <a class="show-comment-btn show-hide-comments comment-btn-discussion" onclick="hideCommentsAction('<%= post._id %>')" id="ShowHideComments<%= post._id %>">Hide</a>
+                    </div>
+                </div>
+                <br>
+                <ul class="panel-body all-comments-box" id="allCommentsContainer<%= post._id %>">
+
+                </ul>
+                <!-- <div class="panel-body comment-panel" style="border:0;padding:0">
+                    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 comment-box comment-compose-div-css" style="border-top: 1px solid #DFDFDF;" id="composeCommentDiv<%= post._id %>">
+                        <div class="col-sm-1 col-md-1 col-xs-2">
+                            <img src="/Upload/Profile/default.png" class="discussion-comment-user">
+                        </div>
+                        <div class="col-sm-11 col-md-11 col-xs-10">
+                            <div class="input-group reply-input">
+                                <textarea type="text" autocomplete="off" class="form-control input-md comment-textarea" id="textarea<%= post._id %>" placeholder="reply to this discussion..." rows="1" maxlength="1500">
+
+                                </textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-md post-discussion-btn" onclick="postComment('<%= post._id %>')">
+                                        Post
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <% } %>
+        <% }); %>
+</div>
+<div id="discussionsList">
+<% comm.posts.forEach(function(post){ %>
+    <% if(post.featured==false){%>
+    <div class="container discussion-container " id="<%= post._id %>">
+        <div class="panel panel-default allSidesSoft" style="background:white;" id="panel-default<%= post._id %>">
+                <% if(post.global){ %>
+                    <span class="badge global-label" id="global<%= post._id %>">Global</span>
+                <% } %>
+                <div class="dropup open">
+                    <a class="discussion-dropdown-menu" data-toggle="dropdown" style="float:right !important" aria-expanded="true">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-discussion">
+                        <li><a class="request-dropdown-options" onclick="deleteThePost('<%= comm._id %>','<%= post._id %>')">Delete</a></li>           <li id="featuredBtnLi<%= post._id %>">               <a class="request-dropdown-options" onclick="makeThisFeatured('<%= comm._id %>','<%= post._id %>',this)" id="featuredBtn<%= post._id %>">Feature</a>            </li>           <li id="globalBtnLi<%= post._id %>">               <a class="request-dropdown-options" onclick="makeThisGlobal('<%= comm._id %>','<%= post._id %>',this)" id="globalBtn<%= post._id %>">
+                            
+                        
+                            <% if(post.global==true){ %>
+                                Unpublish from TalkDev
+                                <% }else if(post.global==false){ %>
+                                Publish to TalkDev
+                                <% } %>
+                        </a>            </li>         </ul>       </div>
+            <div class="panel-body" style="padding:0;padding-top:10px">
+                <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-title">
+                    <a class="discussion-title" href="/community/selecteddiscussion/<%= comm._id %>/<%= post._id %>" target="_blank"><%= post.title %></a>
+                </div>
+                <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-head">
+                    posted by 
+                    <a href="/viewprofile/<%= post.createdById %>">
+                        <%= post.createdByName %>
+                    </a>
+                     on  <%= post.createdOn %>    
+                    </div>  
+                </div>  
+                <div class="panel-body" style="padding:0;padding-top:10px;">
+                    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 discussion-content" style="font-size:16px">
+                            <%= post.info %>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding:0;padding-top:10px;">
+                    <div class="col-sm-4 col-md-3 col-lg-2 col-xs-8">
+                        <a class="comment-btn-discussion" onclick="showCommentsAction('<%= post._id %>',0)" id="showComments<%= post._id %>">
+                            <i class="fa fa-comment-alt"></i> <%= post.commentsCount %><mobilenone>comments</mobilenone>
+                        </a>
+                        <a class="show-comment-btn show-hide-comments comment-btn-discussion" onclick="hideCommentsAction('<%= post._id %>')" id="ShowHideComments<%= post._id %>">Hide</a>
+                    </div>
+                </div>
+                <br>
+                <ul class="panel-body all-comments-box" id="allCommentsContainer<%= post._id %>">
+
+                </ul>
+                <!-- <div class="panel-body comment-panel" style="border:0;padding:0">
+                    <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 comment-box comment-compose-div-css" style="border-top: 1px solid #DFDFDF;" id="composeCommentDiv<%= post._id %>">
+                        <div class="col-sm-1 col-md-1 col-xs-2">
+                            <img src="/Upload/Profile/default.png" class="discussion-comment-user">
+                        </div>
+                        <div class="col-sm-11 col-md-11 col-xs-10">
+                            <div class="input-group reply-input">
+                                <textarea type="text" autocomplete="off" class="form-control input-md comment-textarea" id="textarea<%= post._id %>" placeholder="reply to this discussion..." rows="1" maxlength="1500">
+
+                                </textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-md post-discussion-btn" onclick="postComment('<%= post._id %>')">
+                                        Post
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+        <% } %>
+        <% }); %>
+</div>
+
+        
+        <script>
+                function deleteThePost(commid,postid)
+                {
+                    console.log("CALLED");
+                    $.ajax({
+                    type: "POST",
+                    url: "/deleteThePost",
+                    data: JSON.stringify({commid : commid,postid: postid}),
+                    contentType: 'application/json',
+                    success: function(response)
+                    {
+                        var child= document.getElementById(postid);
+                        child.parentNode.removeChild(child);
+                    }
+                });
+            }
+            
+            </script>

@@ -1,0 +1,23 @@
+
+        <% users.forEach(function(u){ %>
+        <tr >
+            <td><%= u.email %></td>
+            <td><%= u.phone %></td>
+            <td><%= u.city %></td>
+            <td><%= u.status %></td>
+            <td><%= u.role %></td>
+            <td>
+                <center>
+                    <a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#popUp" style="background:#000">
+                        <span class="fa fa-envelope" style="color:#fff"></span>
+                    </a>
+                    <a class="btn btn-primary btn-sm editbtn actionbtns" data-toggle="modal" data-target="#updateUser" >
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    <a class="btn btn-warning btn-sm activebtn actionbtns" data-toggle="modal" data-target="#roleFilterTitle">
+                        <span class="fa fa-times-circle"></span>
+                    </a>
+                </center>
+            </td>
+        </tr>
+        <% }); %>

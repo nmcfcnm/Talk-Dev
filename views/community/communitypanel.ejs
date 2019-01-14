@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome <%= user.name %></title>
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<%- include('../partials/user/navbar',{user:user}) %>
+<!--====================================================================-->
+<div class="community-header-top" style="height:50px;padding-top:6px;">
+<div class="col-sm-12 community-sub-head">
+    <a class="btn community-head-btn active" href="/community/communitypanel">
+      <i class="fa fa-users"></i>
+    </a>
+    <a class="btn community-head-btn" style="margin-left:10px" href="/community/list">
+      <i class="fa fa-search"></i>
+    </a>
+</div>
+</div>
+<!--====================================================================-->
+<div class="container" style="padding:0">
+<div class="col-sm-12">
+  <div class="panel panel-default allSidesSoft community-panel-main-div">
+    
+      <div class="panel-heading community-panel-heading">
+      
+        <% if(user.role=="community manager" || user.role=="admin"){ %>
+          <p style="color:white;margin-top:6px;font-weight:bold">My Communities</p>
+          <a href="/community/AddCommunity" class="btn btn-info community-panel-btn" style="float:right;margin:-35px 5px 0 0">Create</a>
+        <% }else{ %>
+          <p style="color:white;">My Communities</p>
+      <% } %>
+    </div>
+    <div class="panel-body" style="padding-bottom:0">
+      
+    </div>
+
+    <div class="panel-body" style="padding-top:0;padding-bottom:0">
+        <center>
+          
+        </center>
+        <div id="community-that-am-in">
+            <%- include('../partials/user/myCreatedCommunities',{user:user}) %>
+            <%- include('../partials/user/asAdminCommunities',{user:user}) %>
+            <%- include('../partials/user/joinedCommunities',{user:user}) %>
+            <%- include('../partials/user/pendingCommunities',{user:user}) %>
+            <%- include('../partials/user/invitedCommunities',{user:user}) %>
+            <!--Joined Community-->
+        <!-- <div class="col-sm-12 col-xs-12 joinedCommunity community-div" style="margin-top:5px;" id="can5ba5b046393e737dbe66f5d4">
+          <div class="col-sm-1 col-xs-3" style="padding:10px;z-index:1">
+            <a href="http://159.65.152.42:3000/community/discussion/5ba5b046393e737dbe66f5d4">
+              <img src="./c_files/1540508025687.jpeg" class="cpic">
+            </a>
+          </div>
+          <div class="col-sm-10 col-xs-7" style="padding-top:25px;padding-bottom:5px;overflow:scroll">
+            <p style="margin:0">
+              <a class="comnametxt" href="http://159.65.152.42:3000/community/discussion/5ba5b046393e737dbe66f5d4">
+                finance club
+              </a>&nbsp;&nbsp;&nbsp;<a class="comnametxt-user" href="http://159.65.152.42:3000/community/communitymembers/5ba5b046393e737dbe66f5d4">Members(4)</a></p></div><div class="col-sm-1 col-xs-2" style="padding:0"></div></div><div class="col-sm-12 col-xs-12 joinedCommunity community-div" style="margin-top:5px;" id="can5bb756b8431b7366243a365a"><div class="col-sm-1 col-xs-3" style="padding:10px;z-index:1"><a href="http://159.65.152.42:3000/community/discussion/5bb756b8431b7366243a365a"><img src="./c_files/defaultCommunity.jpg" class="cpic"></a></div><div class="col-sm-10 col-xs-7" style="padding-top:25px;padding-bottom:5px;overflow:scroll">     <p style="margin:0"><a class="comnametxt" href="http://159.65.152.42:3000/community/discussion/5bb756b8431b7366243a365a">test </a>&nbsp;&nbsp;&nbsp;<a class="comnametxt-user" href="http://159.65.152.42:3000/community/communitymembers/5bb756b8431b7366243a365a">Members(7)</a></p>
+              </div>
+              <div class="col-sm-1 col-xs-2" style="padding:0">
+              </div>
+            </div> -->
+            </div>
+    </div>
+
+    <div class="panel-body" style="padding-top:0">
+      <div id="my-pending-commuity">
+            
+        <!--Pending Community-->
+      <!-- <div class="col-sm-12 col-xs-12 pendingCommunity community-div" style="margin-top:5px;" id="can5bd2e4f963ab023c10dc38d4"><div class="col-sm-1 col-xs-3" style="padding:10px;z-index:1"><a href="http://159.65.152.42:3000/community/communityprofile/5bd2e4f963ab023c10dc38d4"><img src="./c_files/defaultCommunity.jpg" class="cpic"></a></div><div class="col-sm-10 col-xs-7" style="padding-top:25px;padding-bottom:5px;overflow:scroll">     <p style="margin:0"><a class="comnametxt" href="http://159.65.152.42:3000/community/communityprofile/5bd2e4f963ab023c10dc38d4"><label class="label label-danger">Pending</label>&nbsp;&nbsp;&nbsp;Developers</a>&nbsp;&nbsp;&nbsp;<a class="comnametxt-user" style="text-decoration:none;color:black;cursor:context-menu">Members(2)</a></p></div><div class="col-sm-1 col-xs-2" style="padding:0"><a class="community-short-btn" onclick="cancelRequest(&quot;5bd2e4f963ab023c10dc38d4&quot;)" style="float:right"><label class="label label-danger" style="cursor:pointer !important;"><i class="fa fa-times"></i></label></a></div></div><div class="col-sm-12 col-xs-12 pendingCommunity community-div" style="margin-top:5px;" id="can5ba5b2d1393e737dbe66f5f5"><div class="col-sm-1 col-xs-3" style="padding:10px;z-index:1"><a href="http://159.65.152.42:3000/community/communityprofile/5ba5b2d1393e737dbe66f5f5"><img src="./c_files/defaultCommunity.jpg" class="cpic"></a></div><div class="col-sm-10 col-xs-7" style="padding-top:25px;padding-bottom:5px;overflow:scroll">     <p style="margin:0"><a class="comnametxt" href="http://159.65.152.42:3000/community/communityprofile/5ba5b2d1393e737dbe66f5f5"><label class="label label-danger">Pending</label>&nbsp;&nbsp;&nbsp;Oneness - Community Portal</a>&nbsp;&nbsp;&nbsp;<a class="comnametxt-user" style="text-decoration:none;color:black;cursor:context-menu">Members(5)</a></p></div><div class="col-sm-1 col-xs-2" style="padding:0"><a class="community-short-btn" onclick="cancelRequest(&quot;5ba5b2d1393e737dbe66f5f5&quot;)" style="float:right"><label class="label label-danger" style="cursor:pointer !important;"><i class="fa fa-times"></i></label></a></div></div><div class="col-sm-12 col-xs-12 pendingCommunity community-div" style="margin-top:5px;" id="can5bb757f3431b7366243a365d"><div class="col-sm-1 col-xs-3" style="padding:10px;z-index:1"><a href="http://159.65.152.42:3000/community/communityprofile/5bb757f3431b7366243a365d"><img src="./c_files/defaultCommunity.jpg" class="cpic"></a></div><div class="col-sm-10 col-xs-7" style="padding-top:25px;padding-bottom:5px;overflow:scroll">     <p style="margin:0"><a class="comnametxt" href="http://159.65.152.42:3000/community/communityprofile/5bb757f3431b7366243a365d"><label class="label label-danger">Pending</label>&nbsp;&nbsp;&nbsp;test</a>&nbsp;&nbsp;&nbsp;<a class="comnametxt-user" style="text-decoration:none;color:black;cursor:context-menu">Members(2)</a></p></div><div class="col-sm-1 col-xs-2" style="padding:0"><a class="community-short-btn" onclick="cancelRequest(&quot;5bb757f3431b7366243a365d&quot;)" style="float:right"><label class="label label-danger" style="cursor:pointer !important;"><i class="fa fa-times"></i></label></a></div></div> -->
+    </div>
+    </div>
+
+  </div>
+</div>
+</div>
+<br>
+
+<!--====================================================================-->
+<script src="/js/Common.js"></script>
+<script src="/js/notie.min.js"></script>
+<script src="/js/CommunityPanel.js"></script>
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+
+
+</body>
+</html>

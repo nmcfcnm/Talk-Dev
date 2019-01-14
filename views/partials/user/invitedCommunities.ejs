@@ -1,0 +1,67 @@
+<% commPopulated.invited.forEach(function(comm){ %>
+<div class="col-sm-12 col-xs-12 pendingCommunity community-div" style="margin-top:5px;" id="can<%= comm._id %>">
+  <div class="col-sm-1 col-xs-3" style="padding:10px;z-index:1">
+    <a href="/community/communityprofile/<%= comm._id %>">
+      <% if(comm.image==""){%>
+        <img src="/images/nocommunityimage.png" class="cpic">
+        <%}else {%>
+            <img src="<%= comm.image %>" class="cpic">
+        <% }%>
+      </a>
+    </div>
+    <div class="col-sm-9 col-xs-7" style="padding-top:25px;padding-bottom:5px;overflow:scroll">
+      <p style="margin:0">
+        <a class="comnametxt" href="/community/communityprofile/<%= comm._id %>">
+          <label class="inviting<%= comm._id %> label label-warning">Invitations</label>&nbsp;&nbsp;&nbsp;<%= comm.name %>
+        </a>&nbsp;&nbsp;&nbsp;<a class="comnametxt-user" style="text-decoration:none;color:black;cursor:context-menu">Members(<%= comm.membersCount %>)</a>
+      </p>
+    </div>
+    <div class="inviting<%= comm._id %>">
+    <div class="col-sm-1 col-xs-1" style="padding:0">
+      <a class="community-short-btn" onclick="AcceptingInvite('<%= comm._id %>')" style="float:right">
+            <label class="label label-success">Accept</label>
+      </a>
+    </div>
+    <div class="col-sm-1 col-xs-1" style="padding:0">
+    <a class="community-short-btn" onclick="RejectingInvite('<%= comm._id %>')" style="float:right">
+            <label class="label label-danger">Reject</label>
+      </a>
+    </div>
+    </div>
+  </div>
+    <% }); %>
+<script>
+  function AcceptingInvite(commid)
+  {
+   console.log("DONE");   
+    
+                 $.ajax({
+                 
+                  type: "POST",
+                 url: "/acceptInvite",
+                 data: JSON.stringify({commid : commid}),
+                 contentType: 'application/json',
+                success: function(response)
+                {
+                    $(".inviting"+commid).remove();
+                }
+        });
+    }
+    function RejectingInvite(commid)
+    {
+        $.ajax({
+                 
+                 type: "POST",
+                url: "/rejectInvite",
+                data: JSON.stringify({commid : commid}),
+                contentType: 'application/json',
+               success: function(response)
+               {
+                   $("#can"+commid).remove();
+               }
+       });
+        
+    }
+  </script>
+
+     

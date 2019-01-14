@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit <%= comm.name %></title>
+
+<%- include('../partials/user/headerFiles',{user:user}) %>
+<%- include('../partials/user/navbar',{user:user}) %>
+  <div class="community-header-top communityheader-profile-mobile" style="padding-top:6px;position:relative;">
+    <div class="container pc">
+    
+</div>
+    <center>
+        <div class="communityprofile-name-mobile" style="max-height:40px;overflow:scroll">
+          <a href="/community/communityprofile/<%= comm._id %>" style="color:white">
+             <%= comm.name %>
+          </a>
+        </div>
+    </center>
+
+    <center>
+      <a href="/community/communityprofile/<%= comm._id %>">
+        <img src="/images/defaultCommunity.jpg" class="mobile img-communityprofile-pic allSides" style="background:#fff">
+      </a>
+    </center>
+
+</div>
+
+<div class="container community-profile-conatiner">
+<div class="col-sm-2 col-xs-12 center-mobile pc">
+<a href="/community/communityprofile/<%= comm._id %>">
+  <img src="/images/defaultCommunity.jpg" class="img-communityprofile-pic allSides" style="background:#fff">
+</a>
+</div>
+
+<div class="col-sm-8 communityprofile-name-pc">
+  <a href="/community/communityprofile/<%= comm._id %>" class="communityprofile-name-pc">
+    <%= comm.name %>
+  </a>
+</div>
+
+
+<div class="col-sm-2 col-xs-12 center-mobile" style="padding-top:10px;float:right">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle commuity-profile-menu-btn" type="button" data-toggle="dropdown">
+    <i class="fa fa-bars"></i>
+  </button>
+  <ul class="dropdown-menu custom-commuity-dropdown dropdown-menu-right" style="margin-top:40px">
+
+    
+      <li>
+          <a href="/community/discussion/<%= comm._id %>" class="community-profile-option-btn">
+            Discussions
+          </a>
+      </li>
+    
+
+    
+      <li>
+          <a href="/community/managecommunity/<%= comm._id %>" class="community-profile-option-btn">
+            Manage Community
+          </a>
+      </li>
+    
+
+      <li>
+          <a href="/community/communityprofile/<%= comm._id %>" class="community-profile-option-btn">
+            Community Profile
+          </a>
+      </li>
+
+      <li>
+          <a href="/community/communitymembers/<%= comm._id %>" class="community-profile-option-btn">
+            Community Members
+          </a>
+      </li>
+
+    </ul>
+</div>
+</div>
+
+</div>
+<center>
+    <hr style="border-top:2px solid #E6E6E6;width:85%;margin-top:0">
+</center>
+
+<head>
+        <link rel="stylesheet" href="/css/trumbowyg.css" />
+</head>
+
+  <div class="container">
+    <div style="margin-top:30px;">
+      
+      <div class="col-12">
+            <div class="card allSidesSoft">
+                <div class="card-body">
+                  <div class="d-flex">
+
+                      <form class="image-container communitypicform" method="post" enctype="multipart/form-data" action="/community/editcommunity/">
+                          <img src="/images/defaultCommunity.jpg" id="community-profile-image" style="width: 150px; height: 150px" class="img-thumbnail allSidesSoft">
+                          <div class="middle">
+                              <input type="button" class="btn btn-default btn-sm" id="changeProfilePicBtn" value="Change">
+                              <input type="file" style="display: none;" id="communityProfileUpload" name="image">
+                          </div>
+                      </form>
+
+                      <div class="ml-auto">
+                          <input type="button" class="btn btn-danger btn-sm d-none" id="btnDiscard" value="Discard Changes">
+                      </div>
+                  </div>
+
+                  <br>
+                  <form class="communitypicform" method="post" action="/community/editcommunity/<%= comm._id %>">
+                    <div class="panel-group">
+                      <div class="form-group">
+                              <label>Community Name :</label>
+                              <input type="text" value="<%= comm.name %>" class="form-control" name="name" maxlength="70" required="">
+                      </div>
+                      <div class="form-group">
+                            <label>Community Rule:</label>
+                            <select class="form-control" name="communityType">
+                                  <% if(comm.communityType=='private'){%>
+                                  <option value="private" selected="">Private</option>
+                                  <%}else if(comm.communityType=='public'){%>
+                                  <option value="public">Direct</option>
+                                  <% } %>
+                              </select>
+                            
+                        </div>
+                      
+                        <div class="form-group">
+                                <label>Community Description:</label>
+                                <div class="trumbowyg-box trumbowyg-editor-visible trumbowyg-en trumbowyg"><div class="trumbowyg-button-pane"><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-undo-button " title="Undo (Ctrl + Z)" tabindex="-1"><svg><use xlink:href="#trumbowyg-undo"></use></svg></button><button type="button" class="trumbowyg-redo-button " title="Redo (Ctrl + Y)" tabindex="-1"><svg><use xlink:href="#trumbowyg-redo"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-formatting-button trumbowyg-open-dropdown" title="Formatting" tabindex="-1"><svg><use xlink:href="#trumbowyg-p"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-strong-button " title="Strong (Ctrl + B)" tabindex="-1"><svg><use xlink:href="#trumbowyg-strong"></use></svg></button><button type="button" class="trumbowyg-em-button " title="Emphasis (Ctrl + I)" tabindex="-1"><svg><use xlink:href="#trumbowyg-em"></use></svg></button><button type="button" class="trumbowyg-del-button " title="Deleted" tabindex="-1"><svg><use xlink:href="#trumbowyg-del"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-superscript-button " title="Superscript" tabindex="-1"><svg><use xlink:href="#trumbowyg-superscript"></use></svg></button><button type="button" class="trumbowyg-subscript-button " title="Subscript" tabindex="-1"><svg><use xlink:href="#trumbowyg-subscript"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-horizontalRule-button " title="Insert horizontal rule" tabindex="-1"><svg><use xlink:href="#trumbowyg-horizontal-rule"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-unorderedList-button " title="Unordered list" tabindex="-1"><svg><use xlink:href="#trumbowyg-unordered-list"></use></svg></button><button type="button" class="trumbowyg-orderedList-button " title="Ordered list" tabindex="-1"><svg><use xlink:href="#trumbowyg-ordered-list"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-link-button trumbowyg-open-dropdown" title="Link" tabindex="-1"><svg><use xlink:href="#trumbowyg-link"></use></svg></button></div><div class="trumbowyg-button-group "><button type="button" class="trumbowyg-justifyLeft-button " title="Align Left" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-left"></use></svg></button><button type="button" class="trumbowyg-justifyCenter-button " title="Align Center" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-center"></use></svg></button><button type="button" class="trumbowyg-justifyRight-button " title="Align Right" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-right"></use></svg></button><button type="button" class="trumbowyg-justifyFull-button " title="Align Justify" tabindex="-1"><svg><use xlink:href="#trumbowyg-justify-full"></use></svg></button></div><div class="trumbowyg-button-group trumbowyg-right"><button type="button" class="trumbowyg-fullscreen-button trumbowyg-not-disable" title="Fullscreen" tabindex="-1"><svg><use xlink:href="#trumbowyg-fullscreen"></use></svg></button></div></div><div class="trumbowyg-editor" contenteditable="true" dir="ltr"><%= comm.info %></div><textarea type="text" class="form-control trumbowyg-textarea" rows="15" name="communityDescription" id="description" required="" tabindex="-1" style="height: 260px;"><%= comm.info %></textarea><div class="trumbowyg-dropdown-formatting trumbowyg-dropdown trumbowyg-fixed-top" data-trumbowyg-dropdown="formatting" style="display: none;"><button type="button" class="trumbowyg-p-dropdown-button"><svg><use xlink:href="#trumbowyg-p"></use></svg>Paragraph</button><button type="button" class="trumbowyg-blockquote-dropdown-button"><svg><use xlink:href="#trumbowyg-blockquote"></use></svg>Quote</button><button type="button" class="trumbowyg-h1-dropdown-button"><svg><use xlink:href="#trumbowyg-h1"></use></svg>Header 1</button><button type="button" class="trumbowyg-h2-dropdown-button"><svg><use xlink:href="#trumbowyg-h2"></use></svg>Header 2</button><button type="button" class="trumbowyg-h3-dropdown-button"><svg><use xlink:href="#trumbowyg-h3"></use></svg>Header 3</button><button type="button" class="trumbowyg-h4-dropdown-button"><svg><use xlink:href="#trumbowyg-h4"></use></svg>Header 4</button></div><div class="trumbowyg-dropdown-link trumbowyg-dropdown trumbowyg-fixed-top" data-trumbowyg-dropdown="link" style="display: none;"><button type="button" class="trumbowyg-createLink-dropdown-button" title=" (Ctrl + K)"><svg><use xlink:href="#trumbowyg-create-link"></use></svg>Insert link</button><button type="button" class="trumbowyg-unlink-dropdown-button"><svg><use xlink:href="#trumbowyg-unlink"></use></svg>Remove link</button></div><div class="trumbowyg-overlay"></div></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary pull-right btnEditForm" style="margin:1px" value="Update">
+                    </div>
+                  </form>
+                </div>
+           </div>
+        </div>
+    </div>
+  </div>
+  <br>
+
+</div>
+</div>
+</div>
+</div>
+<script src="/js/vibrant.js"></script>
+<script src="/js/Common.js"></script>
+<script src="/js/notie.min.js"></script>
+<script src="/js/ManageCommunity.js"></script>
+<script src="/js/trumbowyg.min.js"></script>
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#community-panel-nav').addClass('active');
+</script>
+<script>
+  $.trumbowyg.svgPath = '/Plugins/maileditor/icons.svg';
+  $('#description').trumbowyg({
+    btnsDef: {
+          alert: {
+              fn: function() {
+                  alert('some text')
+              },
+              ico: 'blockquote'
+          }
+      },
+
+    autogrow: true,
+    btns: [
+     ['undo', 'redo'],
+     ['formatting'],
+     ['strong', 'em', 'del'],
+     ['superscript', 'subscript'],
+     ['horizontalRule'],
+     ['unorderedList', 'orderedList'],
+     ['link'],
+     ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+     ['fullscreen']
+  ]
+  });
+</script>
+<script>
+  $('.communitypicform').attr('action','/community/editcommunity/'+id);
+  var imgSrc = $('#community-profile-image').attr('src');
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#community-profile-image').attr('src', e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $('#changeProfilePicBtn').on('click', function () {
+      if (!$('#changeProfilePicBtn').hasClass('changing')) {
+          $('#communityProfileUpload').click();
+      }
+  });
+  $('#communityProfileUpload').on('change', function () {
+      if(validateImageSize(this)){
+        readURL(this);
+        $('#changeProfilePicBtn').addClass('changing');
+        $('#changeProfilePicBtn').attr('value', 'Confirm');
+        $('#changeProfilePicBtn').attr('type', 'submit');
+        $('#btnDiscard').removeClass('d-none');
+      }
+  });
+  $('#btnDiscard').on('click', function () {
+      $('#changeProfilePicBtn').removeClass('changing');
+      $('#changeProfilePicBtn').attr('value', 'Change');
+      $('#changeProfilePicBtn').attr('type', 'button');
+      $('#btnDiscard').addClass('d-none');
+      $('#community-profile-image').attr('src', imgSrc);
+      $('#communityProfileUpload').val('');
+  });
+</script>
+</body>
+</html>
