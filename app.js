@@ -389,9 +389,9 @@ app.get('/community/managecommunity/:_id',redirectLogin,(req, res) =>{
 });
 // .populate('RequestedCommunties', '_id name image').populate('owner', '_id name image')
 app.post('/community/allcomusers/:_id',redirectLogin,(req,res)=>{
-    Community.findOne({_id : req.params._id }).populate('membersJoined', '_id name image').select('membersJoined').lean().exec(function (err,comm) {
+    Community.findOne({_id : req.params._id }).populate('membersJoined', '_id name image').lean().exec(function (err,comm) {
         if (err) throw err;
-        return res.send(JSON.stringify({membersJoined : comm.membersJoined}));
+        return res.send(JSON.stringify({comm : comm}));
     });
 });
 app.post('/community/allcomadminsandowners/:_id',redirectLogin,(req,res)=>{
@@ -503,6 +503,7 @@ app.post('/makeAdmin',redirectLogin,(req,res)=>{
 app.post('/deleteCommunityUserfromJoined',redirectLogin,(req,res)=>{
     var userid=req.body.userid;
     var commid=req.body.commid;
+    console.log("user id : "+userid+"  commid  : "+commid);
     User.updateOne({ _id: userid }, {
         $pull: { JoinedCommunties: commid }
     }, function (err) {

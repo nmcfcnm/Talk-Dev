@@ -193,21 +193,24 @@
              success: function (response) {
                console.log("AGYA VAPIS");
                 res=JSON.parse(response);
+                console.log("res = "+res);
       $("#AdminsShowBtn").removeClass('manageCommunity-btn-active');
       $("#requestedUserShowBtn").removeClass('manageCommunity-btn-active');
       $("#invitedUserShowBtn").removeClass('manageCommunity-btn-active');
       $("#UsersShowBtn").addClass('manageCommunity-btn-active');
       $(".allcoms").remove();
        var  code="";
-       res.membersJoined.forEach(function(user){
-            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
-            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+
+       res.comm.membersJoined.forEach(function(user){
+console.log("USER AAYA : "+user._id);
+            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user._id+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user._id+"\">";
             code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
             code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
-            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
-            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"makeAdmin('"+user.userid+"','"+id+"')\" style=\"float:left\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user._id+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"makeAdmin('"+user._id+"','"+id+"')\" style=\"float:left\">";
             code+="<i class=\"fa fa-chevron-up\"></i>";
-            code+="</a><a class=\"community-user-short-btn\" style=\"float:right\" onclick=\"deleteCommunityUserfromJoined('"+user.userid+"','"+id+"')\">";
+            code+="</a><a class=\"community-user-short-btn\" style=\"float:right\" onclick=\"deleteCommunityUserfromJoined('"+user._id+"','"+id+"')\">";
             code+="<i class=\"fa fa-times\"></i></a></div></div>";
             $('#comlist').append(code);
             });
@@ -232,24 +235,24 @@
        var  code="";
 
        code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" style=\"margin-top:5px;\">";
-            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+res.owner.userid+"\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+res.owner._id+"\">";
             code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
             code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
-            code+="<a class=\"comusername\" href=\"/viewprofile/"+res.owner.userid+"\">"+res.owner.name+"</a>";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+res.owner._id+"\">"+res.owner.name+"</a>";
             code+="</div><div class=\"col-sm-2 col-xs-3\"><span class=\"label label-success\" style=\"margin-top:25px;float:right\">Owner</span></div></div>";
             $('#comlist').append(code);
             
 
 
        res.admin.forEach(function(user){
-            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
-            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user._id+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user._id+"\">";
             code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
             code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
-            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
-            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"removeAdmin('"+user.userid+"','"+id+"')\" style=\"float:left\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user._id+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"removeAdmin('"+user._id+"','"+id+"')\" style=\"float:left\">";
             code+="<i class=\"fa fa-chevron-down\"></i>";
-            code+="</a><a class=\"community-user-short-btn\" style=\"float:right\" onclick=\"deleteCommunityUserfromAdmin('"+user.userid+"','"+id+"')\">";
+            code+="</a><a class=\"community-user-short-btn\" style=\"float:right\" onclick=\"deleteCommunityUserfromAdmin('"+user._id+"','"+id+"')\">";
             code+="<i class=\"fa fa-times\"></i></a></div></div>";
             $('#comlist').append(code);
             });
@@ -276,12 +279,12 @@
         
 
         res.membersRequested.forEach(function(user){
-            code="<div class=\"col-sm-12 col-xs-12 allcoms  community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
-            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+            code="<div class=\"col-sm-12 col-xs-12 allcoms  community-user-div\" id=\"user"+user._id+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user._id+"\">";
             code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
             code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
-            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
-            code+="</div><div class=\"col-sm-2 col-xs-3\"><div class=\"dropdown\"><div class=\"dropup request-btn-dropdown\"><button class=\"btn btn-default dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" style=\"float:right !important\">Option</button> <ul class=\"dropdown-menu dropdown-menu-right\"><li><a class=\"request-dropdown-options\" onclick=\"acceptJoinRequest('"+user.userid+"','"+id+"')\">Accept</a></li><li><a class=\"request-dropdown-options\" onclick=\"deleteJoinRequest('"+user.userid+"','"+id+"')\">Reject</a></li></ul></div></div></div></div></div>";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user._id+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><div class=\"dropdown\"><div class=\"dropup request-btn-dropdown\"><button class=\"btn btn-default dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" style=\"float:right !important\">Option</button> <ul class=\"dropdown-menu dropdown-menu-right\"><li><a class=\"request-dropdown-options\" onclick=\"acceptJoinRequest('"+user._id+"','"+id+"')\">Accept</a></li><li><a class=\"request-dropdown-options\" onclick=\"deleteJoinRequest('"+user._id+"','"+id+"')\">Reject</a></li></ul></div></div></div></div></div>";
             $('#comlist').append(code);
             });
           }
@@ -304,12 +307,12 @@
         var  code="";
         
         res.invited.forEach(function(user){
-            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user.userid+"\" style=\"margin-top:5px;\">";
-            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user.userid+"\">";
+            code="<div class=\"col-sm-12 col-xs-12 allcoms community-user-div\" id=\"user"+user._id+"\" style=\"margin-top:5px;\">";
+            code+="<div class=\"col-sm-2 col-xs-3\" style=\"padding:5px;\"><a href=\"/viewprofile/"+user._id+"\">";
             code+="<img src=\"/images/1540506697109.jpg\" class=\"community-member-pic\"></a>";
             code+="</div><div class=\"col-sm-8 col-xs-6 scrollable\">";
-            code+="<a class=\"comusername\" href=\"/viewprofile/"+user.userid+"\">"+user.name+"</a>";
-            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"cancelthisInvite('"+user.userid+"','"+id+"')\" style=\"float:right\">";
+            code+="<a class=\"comusername\" href=\"/viewprofile/"+user._id+"\">"+user.name+"</a>";
+            code+="</div><div class=\"col-sm-2 col-xs-3\"><a class=\"community-user-short-btn\" onclick=\"cancelthisInvite('"+user._id+"','"+id+"')\" style=\"float:right\">";
             code+="<i class=\"fa fa-times\"></i>";
             code+="</a></div></div>";
             $('#comlist').append(code);
@@ -329,7 +332,6 @@
                    contentType: 'application/json',
                    success: function(response)
                    {
-                      var res=JSON.parse(response);
                       $("#user"+userid+"").remove();
                    }
                 });
@@ -344,7 +346,6 @@
                   contentType: 'application/json',
                   success: function(response)
                   {
-                     var res=JSON.parse(response);
                      $("#user"+userid+"").remove();
                   }
                });
@@ -360,7 +361,6 @@
                   contentType: 'application/json',
                   success: function(response)
                   {
-                     var res=JSON.parse(response);
                      $("#user"+userid+"").remove();
                   }
                });
@@ -382,6 +382,7 @@
 
     function deleteCommunityUserfromJoined(userid,commid)
     {
+
         $.ajax({
                    
                    type: "POST",
@@ -390,8 +391,7 @@
                   contentType: 'application/json',
                   success: function(response)
                   {
-                     var res=JSON.parse(response);
-                     $("#user"+userid+"").remove();
+                     $("#user"+userid).remove();
                   }
                });
              }
