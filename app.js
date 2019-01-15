@@ -68,6 +68,16 @@ app.get('/firstTimeLogin',redirectLogin,(req,res)=>{
 });
 app.post('/firstTimeLogin',redirectLogin,(req,res)=>{
     req.session.userInfo.firstTimeLogin=false;
+    User.findById(req.session.userInfo._id).select("firstTimeLogin").exec(function(err, user){
+        if (err) throw err;
+        user.firstTimeLogin=false;
+        user.name=req.body.fullname;
+        user.dob=req.body.dob;
+        req.session.userInfo.name=req.body.fullname;
+        req.session.userInfo.dob=req.body.dob;
+        
+        user.save();
+    });
     return userRedirection(req,res,req.session.userInfo);
 })
 
@@ -427,7 +437,7 @@ app.post('/community/invite/:_id',redirectLogin,(req,res)=>{
     });
 });
 app.post('/community/inviteUser/:_id',redirectLogin,(req,res)=>{
-    var commid=req.params._id,userid=req.session.userInfo._id;
+    var commid=req.params._id,userid=req.body.userid;
     Community.updateOne({_id :commid},{
         $push:{invited : userid}
     },function(err){

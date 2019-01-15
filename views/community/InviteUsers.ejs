@@ -221,7 +221,6 @@ $('#community-panel-nav').addClass('active');
            url: '/community/inviteUser/'+id,
            success: function (response) {
                UserList(findtext);
-               console.log(">>>>>user"+user+"<<<<<<<<");
                notie.alert({type: 1, text: 'Invitation sent to '+email , time: 2})
            },
            error: function (err) {
