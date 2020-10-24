@@ -14,3 +14,4 @@ To get the project setup, on your local. Follow the below steps:
 - After cloning go to the repo folder
 - In the repo folder run ``npm install``
 - After successfull installation of packages run ``npm run start``
+- test thoroughly
