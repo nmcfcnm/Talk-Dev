@@ -12,7 +12,7 @@ const app = express();
 const port = 3000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TalkDev', { useNewUrlParser: true }).then(()=> console.log('You are now Connected to Mongo DB')).catch(err=>conseole.err('Something Went Wrong',err));
+mongoose.connect('mongodb://localhost:27017/TalkDev', { useNewUrlParser: true }).then(()=> console.log('You are now Connected to Mongo DB')).catch(err=>console.error('Something Went Wrong',err));
 app.locals.loginFailed=0;
 
 var User = require('./models/usermodel');
