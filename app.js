@@ -9,6 +9,7 @@ const app = express();
 const port = 3000;
 
 mongoose.Promise = global.Promise;
+
 mongoose
   .connect("mongodb://localhost:27017/TalkDev", { useNewUrlParser: true })
   .then(() => console.log("You are now Connected to Mongo DB"))
