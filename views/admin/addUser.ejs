@@ -93,20 +93,6 @@ $('#add-user-nav').addClass('active');
           }
         }
       });
-      // xhr = new XMLHttpRequest();
-      // var url = "/check";
-      // xhr.open("POST", url, true);
-      // xhr.setRequestHeader("Content-type", "application/json");
-      // xhr.onreadystatechange = function ()
-      // { 
-      //   if (xhr.readyState == 4 && xhr.status == 200)
-      //   {
-      //     // var json = JSON.parse(xhr.responseText);
-      //     // console.log(json.email);
-      //   }
-      // }
-      // var data = JSON.stringify({"email":val}); 
-      // xhr.send(data);
     }
     else
     {
@@ -122,44 +108,6 @@ $('#add-user-nav').addClass('active');
       var validity = /^(1\s|1|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/.test(phone);
       return validity;
     }
-// $(document).ready(function(){
-//     $("#username").change(function(){
-//         if($('#username').val().trim())
-//         {
-//             var data=$('#username').val().trim().toLowerCase();
-//               $.ajax({
-//                   type: 'POST',
-//                   data: JSON.stringify({username:data}),
-//                   contentType: 'application/json',
-//                   url: '/admin/api/ExistenceUser',
-//                   success: function (response) {
-//                     console.log(response);
-//                       if(response)
-//                       {
-//                         userExist=true;
-//                         // $('#alert-div-avilability').removeClass('alert-success').addClass('alert-danger');
-//                         $('#alert-div-avilability').css('display','block');
-//                         $('#avilability').css("color", "#8B8B8B");
-//                         $('#avilability').text("User "+data+" is already exist");
-//                       }
-//                       else{
-//                         userExist=false;
-//                         // $('#alert-div-avilability').removeClass('alert-danger').addClass('alert-success');
-//                         $('#alert-div-avilability').css('display','block');
-//                         $('#avilability').css("color", "#8B8B8B");
-//                         $('#avilability').text(data+" is Avilable");
-//                       }
-//                   },
-//                   error: function (response) {
-
-//                   }
-//               });
-//         }
-//         else{
-//           $('#alert-div-avilability').css('display','none');
-//         }
-//     });
-// });
 $('#form').submit(function () {
 
   if(userExist)
